@@ -21,6 +21,9 @@ Postacie które nie zasługują by być tu wymienione.
 Gra będzie czerpać inspirację z klimatu Star Wars z grafiką dwuwymiarową z rzutem izometrycznym.
 
 ## 6.Dźwięk i Muzyka - Daniel
+
+Gra będzie okraszona oryginalną muzyką stworzoną przez Johnna Wiliams'a.
+
 ## 7.Interfejs Użytkownika, Sterowanie Grą - Daniel
 ## 8.Sposób Dystrybucji - Sebastian
 
