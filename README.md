@@ -15,6 +15,9 @@ Tajemnicza postać - okazyjnie pomaga naszemu bohaterowi.
 Postacie które nie zasługują by być tu wymienione.
 
 ## 3.Projekt Poziomu/Środowiska - Dominik, Michał
+
+Akcja toczy się na wielu planetach w galaktyce ("kurwix" xD) wraz z postępew w rozwoju przemieszczamy się do następnych planet.
+
 ## 4.Rozgrywka - Paweł
 ## 5.Sztuka - Paweł
 
