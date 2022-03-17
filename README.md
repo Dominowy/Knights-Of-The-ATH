@@ -1,7 +1,7 @@
 # Knights Of The ATH
 
 ## 1.Fabuła - Dominik, Michał
-300 lat po wydarzeniach z Sagi Skywalker, miała miejsece wojna, która unicestwiła prawie wszystkie istoty posługujące się mocą. A na reszczie, która pozostała przeprowadzono czyski. Kultura Jedi oraz Sith jest na wymarciu. Jesteśmy ostatnim spośród czułych na moc, naszym zadaniem jest znalezienie pozostałych artefaktów aby nie wpadły w nie powołane ręce.
+300 lat po wydarzeniach z Sagi Skywalker, miała miejsece wojna, która unicestwiła prawie wszystkie istoty posługujące się mocą. A na reszcie, która pozostała przeprowadzono czyski. Kultura Jedi oraz Sith jest na wymarciu. Jesteśmy ostatnim spośród czułych na moc, naszym zadaniem jest znalezienie pozostałych artefaktów aby nie wpadły w nie powołane ręce.
 
 ## 2.Postacie - Dominik, Michał
 
