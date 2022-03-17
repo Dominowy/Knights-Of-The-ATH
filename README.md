@@ -17,6 +17,9 @@ Postacie które nie zasługują by być tu wymienione.
 ## 3.Projekt Poziomu/Środowiska - Dominik, Michał
 ## 4.Rozgrywka - Paweł
 ## 5.Sztuka - Paweł
+
+Gra będzie czerpać inspirację z klimatu Star Wars z grafiką dwuwymiarową z rzutem izometrycznym.
+
 ## 6.Dźwięk i Muzyka - Daniel
 ## 7.Interfejs Użytkownika, Sterowanie Grą - Daniel
 ## 8.Sposób Dystrybucji - Sebastian
