@@ -30,8 +30,34 @@ Gra będzie okraszona oryginalną muzyką stworzoną przez Johnna Wiliams'a.
 ## 7.Interfejs Użytkownika, Sterowanie Grą - Daniel
 ## 8.Sposób Dystrybucji - Sebastian
 
-Gra będzie do pobrania za darmo z repozytorium na githubie.
+Gra będzie promowana w następujący sposób:
+
+* Wykupienie promocji u twórców gamingowych występujących na platformach: Twitch / Youtube.
+* Dostęp do gry w czasie beta testów.
+* Wypuszczenie gry jako Early Access - platforma steam.
+* Stworzenie profilu gry na platformie facebook.
+* Leady sprzedażowe na facebooku.
+* Wystąpienie na eventach gamingowych.
+
+Gra będzie dystrybuowana:
+
+* W sposób cyfrowy na platformach Steam / Gog.
+* W sposób fizyczny dla określonej liczby osób które wesprą tworzenie gry na platformie Kickstarter.
 
 ## 9.Model Finansowania - Sebastian
 
-Brak, projekt będzie realizowany w sposób darmowy.
+Zebranie środków odbedzie się poprzez:
+
+* Utworzenie zbiórki na Kickstarterze
+* Zebranie sponsorów
+* Zakupienie gry w trybie Early Access
+
+Dystrybucja zebranych środków:
+
+* Zakupienie assetów.
+* Ewentualne zakupienie licencji dla muzyki / Unity.
+* Wynajęcie grafika w celu ulepszenia jakości grafiki.
+* Wynajęcie osoby odpowiedzialnej za promocję gry. 
+* Opłacenie ewntualnych kosztów promocji gry.
+
+
