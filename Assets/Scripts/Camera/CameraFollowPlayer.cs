@@ -11,6 +11,16 @@ public class CameraFollowPlayer : MonoBehaviour
 	// do zmniejszenia size camery
 	public Camera cam1;
 
+	// Input
+	public PlayerInput mouseScroll;
+	public float currentScroll;
+
+	private void Awake()
+	{
+		mouseScroll = new PlayerInput();
+		mouseScroll.InputControls.Zoom.performed += ctx => currentScroll = ctx.ReadValue<float>();
+	}
+
 	void Start()
 	{
 		offset = transform.position - target.position;
@@ -18,16 +28,28 @@ public class CameraFollowPlayer : MonoBehaviour
 
 	void LateUpdate()
 	{
+		// Follow
 		Vector3 targetCamPos = target.position + offset;
 		transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
 
-		if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
-		{
+		// Zoom
+		if (currentScroll > 0)
+        {
 			cam1.orthographicSize -= 0.1f;
 		}
-		else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+		if (currentScroll  < 0)
 		{
-			cam1.orthographicSize += 0.1f; 
+			cam1.orthographicSize += 0.1f;
 		}
+
 	}
+
+    private void OnEnable()
+    {
+		mouseScroll.Enable();
+	}
+    private void OnDisable()
+    {
+        mouseScroll.Disable();
+    }
 }
