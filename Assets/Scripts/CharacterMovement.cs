@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class CharacterMovement : MonoBehaviour
 {
-    
-
     Animator animator;
     int isMovingHash;
     int isLockedHash;
@@ -41,7 +39,6 @@ public class CharacterMovement : MonoBehaviour
     private void Awake()
     {
         input = new PlayerInput();
-
         // event na ruch
         input.InputControls.Movement.performed += ctx =>
         {
@@ -73,7 +70,6 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-
         // Gravity 
         if (characterController.isGrounded)
         {
@@ -105,7 +101,7 @@ public class CharacterMovement : MonoBehaviour
     public void ProcessRotation(Vector2 input)
     {
 
-        // Na PPM postaæ patrzy i obraca siê w stonê myszki
+        // Na PPM postaï¿½ patrzy i obraca siï¿½ w stonï¿½ myszki
         if (PPMLock)
         {
 
@@ -169,7 +165,7 @@ public class CharacterMovement : MonoBehaviour
 
         Vector3 changeVelocity = characterController.velocity / 5;
 
-        //fug, na x lewo prawo jest obrócone
+        //fug, na x lewo prawo jest obrï¿½cone
         changeVelocity.x *= -1; 
 
         Vector3 rotatedVelocity = transform.rotation * changeVelocity;
