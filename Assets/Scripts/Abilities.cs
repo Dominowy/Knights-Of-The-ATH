@@ -45,6 +45,9 @@ public class Abilities : MonoBehaviour
     public float cooldown2 = 10;
     bool isCooldown2 = false;
     bool isSkill2Pressed = false;
+    public bool S2_VFXactive = false;
+    public float channeling = 0;
+    public GameObject S2_VFX;
 
     public Image targetCircle;
     public Image indicatorRangeCircle;
@@ -71,6 +74,10 @@ public class Abilities : MonoBehaviour
     }
         void Update()
     {
+        // Refactor this pls
+        channeling -= Time.deltaTime;
+
+
         Ability1();
         Ability2();
         Ability3();
@@ -153,10 +160,30 @@ public class Abilities : MonoBehaviour
         {
             indicatorRangeCircle.GetComponent<Image>().enabled = true;
             targetCircle.GetComponent<Image>().enabled = true;
-
-            //Disable Skillshot UI
             skillshot.GetComponent<Image>().enabled = false;
+
+
+            channeling = 1f;
         }
+
+       if (channeling > 0.2f)
+       {
+           player.GetComponent<CharacterMovement>().m_canMove = false;
+
+
+            S2_VFX.SetActive(true);
+       }
+        if (channeling > 0.2f)
+        {
+            player.GetComponent<CharacterMovement>().m_canMove = false;
+
+            S2_VFX.SetActive(true);
+        }
+        else if (channeling < 0.2f)
+        {
+            S2_VFX.SetActive(false);
+        }
+
 
         if(targetCircle.GetComponent<Image>().enabled == true || isMoving)
         {
