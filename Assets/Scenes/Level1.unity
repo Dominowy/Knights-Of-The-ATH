@@ -467,7 +467,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59842854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.550242, y: -22.777872, z: 60.101494}
+  m_LocalPosition: {x: -13.550242, y: -22.58, z: 60.101494}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1138380019}
@@ -2336,7 +2336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &653340922
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2411,7 +2411,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &653340926
 Rigidbody:
@@ -4308,7 +4308,7 @@ Transform:
   - {fileID: 1379585671}
   - {fileID: 59842859}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1150391674
 GameObject:
@@ -4557,7 +4557,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5608,7 +5608,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564626578}
   m_LocalRotation: {x: 0.000000021855696, y: -2.5410988e-21, z: 1.2705496e-21, w: 1}
-  m_LocalPosition: {x: 1.314504e-13, y: 0.0000000037266457, z: -0.00000012618993}
+  m_LocalPosition: {x: 1.314504e-13, y: 1.7, z: -0.00000012618993}
   m_LocalScale: {x: 100, y: 99.999985, z: 99.999985}
   m_Children: []
   m_Father: {fileID: 2116295376}
@@ -6482,7 +6482,7 @@ GameObject:
   - component: {fileID: 1829524682}
   - component: {fileID: 1829524681}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -6562,7 +6562,7 @@ Transform:
   m_LocalScale: {x: 4, y: 2, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: -47.04, z: 0}
 --- !u!1 &1847627844
 GameObject:
@@ -6718,7 +6718,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1933775487
 MonoBehaviour:
@@ -6931,8 +6931,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2116295376}
   - component: {fileID: 2116295375}
+  - component: {fileID: 2116295377}
+  - component: {fileID: 2116295378}
   m_Layer: 6
-  m_Name: DRUGI
+  m_Name: Enemy_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6960,7 +6962,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116295374}
   m_LocalRotation: {x: 0, y: -0.72603476, z: 0, w: 0.687658}
-  m_LocalPosition: {x: 22.9, y: 1, z: 8.77}
+  m_LocalPosition: {x: 22.9, y: 1.59, z: 8.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1564626579}
@@ -6970,6 +6972,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -93.11, z: 0}
+--- !u!114 &2116295377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116295374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7b472a99cb8324686d1eb69aa98872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  player: {fileID: 0}
+  canMove: 1
+  forceChokeLift: 2
+  SkillDuration: 3
+  activeChokeSkill: 0
+--- !u!54 &2116295378
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116295374}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 32
+  m_CollisionDetection: 0
 --- !u!1 &2141377200
 GameObject:
   m_ObjectHideFlags: 0
@@ -9401,8 +9437,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2992941479182450165}
   - component: {fileID: 2504776306361886544}
+  - component: {fileID: 2504776306361886545}
   m_Layer: 6
-  m_Name: StormTrooper
+  m_Name: Enemy_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9422,6 +9459,24 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2504776306361886545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2504776306361886543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7b472a99cb8324686d1eb69aa98872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  player: {fileID: 0}
+  canMove: 1
+  forceChokeLift: 2
+  SkillDuration: 3
+  activeChokeSkill: 0
 --- !u!1 &2526290768829836787
 GameObject:
   m_ObjectHideFlags: 0
@@ -9684,7 +9739,7 @@ Transform:
   - {fileID: 4161964749610124375}
   - {fileID: 7338970356024991073}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -93.11, z: 0}
 --- !u!1 &3008671906658662995
 GameObject:
@@ -9875,6 +9930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetingSystem: {fileID: 3217326273807147883}
   characterController: {fileID: 3217326273807147899}
+  m_canMove: 1
   vSpeed: 0
   LockMode: 0
 --- !u!1 &3217326273807147877
@@ -9979,7 +10035,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMoving: 0
   abilityImage1: {fileID: 6864787113067626434}
-  cooldown1: 5
+  cooldown1: 3
+  isActive: 0
   ability1Canvas: {fileID: 1881962203687435710}
   skillshot: {fileID: 1881962204791301824}
   player: {fileID: 3217326273807147898}
@@ -10011,6 +10068,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   raycastOffset: {x: 0, y: 0.5, z: 0}
+  currentEnemy: {fileID: 0}
+  currentEnemyCopy: {fileID: 0}
 --- !u!114 &3217326273807147884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12200,7 +12259,7 @@ GameObject:
   - component: {fileID: 5539175833884840972}
   - component: {fileID: 5539175833884840975}
   m_Layer: 7
-  m_Name: StormTrooper (1)
+  m_Name: StormTrooper_Patroling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13342,7 +13401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &6864787113390589101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14027,7 +14086,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

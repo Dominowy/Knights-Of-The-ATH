@@ -29,9 +29,10 @@ public class Abilities : MonoBehaviour
 
     [Header("Skill 1")]
     public Image abilityImage1;
-    public float cooldown1 = 5;
+    public float cooldown1 = 3;
     bool isCooldown = false;
     bool isSkill1Pressed = false;
+    public bool isActive = false;
 
     Vector3 position;
     public Canvas ability1Canvas;
@@ -74,6 +75,7 @@ public class Abilities : MonoBehaviour
         Ability2();
         Ability3();
 
+
         RaycastHit hit;
 
 
@@ -114,6 +116,8 @@ public class Abilities : MonoBehaviour
         if (isSkill1Pressed && isCooldown == false)
         {
             Debug.Log("Random bs go!!");
+            isActive = true;
+
             skillshot.GetComponent<Image>().enabled = true;
 
             //Disable Other UI
@@ -136,6 +140,7 @@ public class Abilities : MonoBehaviour
             {
                 abilityImage1.fillAmount = 0;
                 isCooldown = false;
+                isActive = false;
             }
         }
     }

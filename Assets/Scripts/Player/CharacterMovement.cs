@@ -16,6 +16,9 @@ public class CharacterMovement : MonoBehaviour
     // Na PPM lockujemy rotowanie kamery
     bool PPMLock;
 
+    // If using skills this is set to false
+    public bool m_canMove = true;
+
     private Vector3 playerVelocity = Vector3.zero;
 
      float speed = 5f;
@@ -71,8 +74,15 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
+       
         Gravity();
-        ProcessMove(currentMovement);
+
+
+
+        if (m_canMove == true)
+        {
+         ProcessMove(currentMovement);
+        }
 
         mousePos = input.InputControls.MousePosition.ReadValue<Vector2>();
         ProcessRotation(mousePos);
@@ -80,6 +90,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void ProcessMove(Vector2 input)
     {
+
         // Ismetric
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;

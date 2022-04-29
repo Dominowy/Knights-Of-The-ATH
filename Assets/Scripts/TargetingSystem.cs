@@ -14,12 +14,26 @@ public class TargetingSystem : MonoBehaviour
 
     private Collider[] enemyColliders;
 
-    private GameObject currentEnemy = null;
 
     private int howManyEnemies;
     private int howManyCollidersBetweenPlayerAndTarget;
 
     private Ray rayToEnemy;
+
+
+
+    // Selected enemy
+    public GameObject currentEnemy = null;
+    public GameObject currentEnemyCopy = null;
+
+
+
+    private void Update()
+    {
+       currentEnemyCopy = currentEnemy;
+    }
+
+
     public void TargetEnemies()
     {
         //getting all the colliders within a given range
