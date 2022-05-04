@@ -732,6 +732,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd18f8c8-0cf0-4d3e-9b7e-73f19eb0c538"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -754,6 +763,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa731790-1ff2-4ac5-badf-28c9478f7480"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -874,6 +894,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
         m_Camera_Mouse = m_Camera.FindAction("Mouse", throwIfNotFound: true);
+        m_Camera_Rotate = m_Camera.FindAction("Rotate", throwIfNotFound: true);
         // Skills
         m_Skills = asset.FindActionMap("Skills", throwIfNotFound: true);
         m_Skills_Skill1 = m_Skills.FindAction("Skill1", throwIfNotFound: true);
@@ -1119,12 +1140,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private ICameraActions m_CameraActionsCallbackInterface;
     private readonly InputAction m_Camera_Zoom;
     private readonly InputAction m_Camera_Mouse;
+    private readonly InputAction m_Camera_Rotate;
     public struct CameraActions
     {
         private @PlayerInput m_Wrapper;
         public CameraActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Zoom => m_Wrapper.m_Camera_Zoom;
         public InputAction @Mouse => m_Wrapper.m_Camera_Mouse;
+        public InputAction @Rotate => m_Wrapper.m_Camera_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1140,6 +1163,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Mouse.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnMouse;
                 @Mouse.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnMouse;
                 @Mouse.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnMouse;
+                @Rotate.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnRotate;
             }
             m_Wrapper.m_CameraActionsCallbackInterface = instance;
             if (instance != null)
@@ -1150,6 +1176,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Mouse.started += instance.OnMouse;
                 @Mouse.performed += instance.OnMouse;
                 @Mouse.canceled += instance.OnMouse;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
             }
         }
     }
@@ -1237,6 +1266,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnZoom(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
     public interface ISkillsActions
     {

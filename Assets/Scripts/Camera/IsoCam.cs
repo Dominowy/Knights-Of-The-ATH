@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class IsoCam : MonoBehaviour
 {
+	// Rotate pivot
+	public Transform pivot;
+	public int rotationCount;
+	public int rotModulo;
+	public float timeCount = 0.0f;
+
 	public Transform target;
 	public float smoothing = 5f;
 	Vector3 offset;
@@ -19,17 +25,19 @@ public class IsoCam : MonoBehaviour
 	{
 		mouseScroll = new PlayerInput();
 		mouseScroll.InputControls.Zoom.performed += ctx => currentScroll = -ctx.ReadValue<float>();
-	}
 
-	void Start()
-	{
-		offset = transform.position - target.position;
-	}
+		// Rotate event
+		mouseScroll.Camera.Rotate.performed += ctx =>
+		{
+			rotationCount++;
+				rotModulo = rotationCount % 4;
+		};
 
+	}
 	void LateUpdate()
 	{
 		// Follow
-		Vector3 targetCamPos = target.position + offset;
+		Vector3 targetCamPos = target.position;
 		transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
 
 		// Zoom
@@ -41,8 +49,11 @@ public class IsoCam : MonoBehaviour
 		{
 			cam1.orthographicSize -= 0.1f;
 		}
-
+		var currentPos = Quaternion.Euler(30f, 90f * (rotModulo - 1), 0f);
+		var nextPos = Quaternion.Euler(30f, 90f * rotModulo, 0f);
+		pivot.transform.rotation = Quaternion.Slerp(currentPos, nextPos, 0.05f * Time.deltaTime);
 	}
+
 
     private void OnEnable()
     {
