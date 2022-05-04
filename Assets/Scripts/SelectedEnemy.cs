@@ -7,6 +7,7 @@ public class SelectedEnemy : MonoBehaviour
     public GameObject player;
     public GameObject target;
     public GameObject targetUI;
+    public GameObject CrossHairUI;
 
 
     public bool canMove = true;
@@ -62,11 +63,13 @@ public class SelectedEnemy : MonoBehaviour
         //Targeting SystemUI
         if (target != null)
         {
+            CrossHairUI.SetActive(false);
             targetUI.SetActive(true);
             targetUI.transform.position = target.transform.position + offset;
         }
         else
         {
+            CrossHairUI.SetActive(true);
             targetUI.SetActive(false);
 
         }

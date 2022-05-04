@@ -9,6 +9,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private TargetingSystem targetingSystem;
 
     [SerializeField] private CharacterController characterController;
+    public GameObject crosshairUI;
     PlayerInput input;
     Vector2 currentMovement;
     bool movementPressed;
@@ -87,8 +88,22 @@ public class CharacterMovement : MonoBehaviour
         if (m_canRotate == true)
         {
          ProcessRotation(mousePos);
+         moveCrosshair();
         }
     }
+
+    void moveCrosshair()
+    {
+        var mouseX = mousePos.x;
+        var mouseY = mousePos.y;
+
+        crosshairUI.transform.position = new Vector2(mouseX, mouseY);
+
+
+    }
+
+
+
 
     public void ProcessMove(Vector2 input)
     {
