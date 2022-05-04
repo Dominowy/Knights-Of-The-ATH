@@ -35,11 +35,11 @@ public class IsoCam : MonoBehaviour
 		// Zoom
 		if (currentScroll > 0)
         {
-			cam1.orthographicSize -= 0.1f;
+			cam1.orthographicSize += 0.1f;
 		}
 		if (currentScroll  < 0)
 		{
-			cam1.orthographicSize += 0.1f;
+			cam1.orthographicSize -= 0.1f;
 		}
 
 	}
