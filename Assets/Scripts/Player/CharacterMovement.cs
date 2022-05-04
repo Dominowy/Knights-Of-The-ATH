@@ -14,7 +14,7 @@ public class CharacterMovement : MonoBehaviour
     bool movementPressed;
 
     // Na PPM lockujemy rotowanie kamery
-    bool PPMLock;
+    public bool PPMLock;
 
     // If using skills this is set to false
     public bool m_canMove = true;

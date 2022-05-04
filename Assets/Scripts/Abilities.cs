@@ -16,6 +16,7 @@ public class Abilities : MonoBehaviour
     private void OnEnable()
     {
         skillControls.Enable();
+        
     }
 
     private void OnDisable()
@@ -82,10 +83,7 @@ public class Abilities : MonoBehaviour
         Ability2();
         Ability3();
 
-
         RaycastHit hit;
-
-
         Ray ray = Camera.main.ScreenPointToRay(skillControls.InputControls.MousePosition.ReadValue<Vector2>());
 
         //Ability 1 Inputs
@@ -120,12 +118,14 @@ public class Abilities : MonoBehaviour
     {
         isSkill1Pressed = skillControls.Skills.Skill1.IsPressed();
 
+        
         if (isSkill1Pressed && isCooldown == false)
         {
-            Debug.Log("Random bs go!!");
+            Debug.Log("Ability 1");
             isActive = true;
 
             skillshot.GetComponent<Image>().enabled = true;
+            LockOnSkill();
 
             //Disable Other UI
             indicatorRangeCircle.GetComponent<Image>().enabled = false;
@@ -162,7 +162,7 @@ public class Abilities : MonoBehaviour
             targetCircle.GetComponent<Image>().enabled = true;
             skillshot.GetComponent<Image>().enabled = false;
 
-
+            LockOnSkill();
             channeling = 1f;
         }
 
@@ -214,6 +214,8 @@ public class Abilities : MonoBehaviour
         {
             isCooldown3 = true;
             abilityImage3.fillAmount = 1;
+
+            LockOnSkill();
         }
 
         if (isCooldown3)
@@ -226,5 +228,13 @@ public class Abilities : MonoBehaviour
                 isCooldown3 = false;
             }
         }
+    }
+
+
+
+    void LockOnSkill()
+    {
+        Debug.Log("PPMlock");
+        player.GetComponent<CharacterMovement>().PPMLock = true;
     }
 }
