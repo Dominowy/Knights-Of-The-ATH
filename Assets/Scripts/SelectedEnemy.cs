@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SelectedEnemy : MonoBehaviour
 {
-    public GameObject target;
     public GameObject player;
+    public GameObject target;
 
 
     public bool canMove = true;
@@ -37,29 +37,28 @@ public class SelectedEnemy : MonoBehaviour
         else
         {
             t = 0;
+            player.GetComponent<CharacterMovement>().m_canMove = true;
         }
        
     }
 
     void Update()
     {
-        // Current Enemy from TS is fetched here
         target = player.GetComponent<TargetingSystem>().currentEnemyCopy;
         activeChokeSkill = player.GetComponent<Abilities>().isActive;
-
-
+        
         // Force Choke
-        if (activeChokeSkill && target != null)
+        if (activeChokeSkill)
         {
             ForceChoke();
             player.GetComponent<CharacterMovement>().m_canMove = false;
-
         }
+
         else
         {
             canMove = true;
             SkillDuration = 3f;
-            player.GetComponent<CharacterMovement>().m_canMove = true;
+
         }
     }
 

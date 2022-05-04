@@ -8,6 +8,9 @@ public class Abilities : MonoBehaviour
 
     PlayerInput skillControls;
 
+    public GameObject target;
+
+
     private void Awake()
     {
         skillControls = new PlayerInput();
@@ -117,17 +120,21 @@ public class Abilities : MonoBehaviour
     void Ability1()
     {
         isSkill1Pressed = skillControls.Skills.Skill1.IsPressed();
+        target = player.GetComponent<TargetingSystem>().currentEnemyCopy;
 
-        
-        if (isSkill1Pressed && isCooldown == false)
+
+        if (isSkill1Pressed && isCooldown == false && target != null)
         {
-            Debug.Log("Ability 1");
+            Debug.Log("Force Choke");
             isActive = true;
 
-            skillshot.GetComponent<Image>().enabled = true;
             LockOnSkill();
 
+
+
+
             //Disable Other UI
+            skillshot.GetComponent<Image>().enabled = true;
             indicatorRangeCircle.GetComponent<Image>().enabled = false;
             targetCircle.GetComponent<Image>().enabled = false;
         }
@@ -168,24 +175,19 @@ public class Abilities : MonoBehaviour
 
        if (channeling > 0.2f)
        {
-           player.GetComponent<CharacterMovement>().m_canMove = false;
-
-
             S2_VFX.SetActive(true);
-       }
-        if (channeling > 0.2f)
-        {
             player.GetComponent<CharacterMovement>().m_canMove = false;
-
-            S2_VFX.SetActive(true);
-        }
-        else if (channeling < 0.2f)
-        {
+       }
+       
+      else if (channeling < 0.2f)
+      {
             S2_VFX.SetActive(false);
+            player.GetComponent<CharacterMovement>().m_canMove = true;
+
         }
 
 
-        if(targetCircle.GetComponent<Image>().enabled == true || isMoving)
+        if (targetCircle.GetComponent<Image>().enabled == true || isMoving)
         {
             isCooldown2 = true;
             abilityImage2.fillAmount = 1;
