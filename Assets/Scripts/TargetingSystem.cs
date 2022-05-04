@@ -26,11 +26,20 @@ public class TargetingSystem : MonoBehaviour
     public GameObject currentEnemy = null;
     public GameObject currentEnemyCopy = null;
 
-
+    // For hard reset
+    public GameObject player;
 
     private void Update()
     {
        currentEnemyCopy = currentEnemy;
+
+        // Hard reset when tab is pressed
+        bool getLockmode =  player.GetComponent<CharacterMovement>().LockMode;
+
+        if (getLockmode == false )
+        {
+            currentEnemyCopy = null;
+        }
     }
 
 

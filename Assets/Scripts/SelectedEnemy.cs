@@ -6,6 +6,7 @@ public class SelectedEnemy : MonoBehaviour
 {
     public GameObject player;
     public GameObject target;
+    public GameObject targetUI;
 
 
     public bool canMove = true;
@@ -19,6 +20,7 @@ public class SelectedEnemy : MonoBehaviour
     void Awake()
     {
         player = GameObject.Find("Player");
+
     }
 
    void ForceChoke()
@@ -46,7 +48,21 @@ public class SelectedEnemy : MonoBehaviour
     {
         target = player.GetComponent<TargetingSystem>().currentEnemyCopy;
         activeChokeSkill = player.GetComponent<Abilities>().isActive;
-        
+
+        var offset = new Vector3(0.0f, 2.5f, -2.0f);
+
+        //Targeting SystemUI
+        if (target != null)
+        {
+            targetUI.SetActive(true);
+            targetUI.transform.position = target.transform.position + offset;
+        }
+        else
+        {
+            targetUI.SetActive(false);
+
+        }
+
         // Force Choke
         if (activeChokeSkill)
         {

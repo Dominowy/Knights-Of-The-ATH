@@ -29,7 +29,7 @@ public class CharacterMovement : MonoBehaviour
     Vector2 mousePos = Vector2.zero;
 
 
-    // public GameObject ENEMYKUHWA;
+    // public GameObject;
     const float rangeOfSphere = 10f;
 
     public bool LockMode = false;
