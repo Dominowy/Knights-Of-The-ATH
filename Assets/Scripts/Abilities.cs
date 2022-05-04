@@ -177,12 +177,14 @@ public class Abilities : MonoBehaviour
        {
             S2_VFX.SetActive(true);
             player.GetComponent<CharacterMovement>().m_canMove = false;
+            player.GetComponent<CharacterMovement>().m_canRotate = false;
        }
        
       else if (channeling < 0.2f)
       {
             S2_VFX.SetActive(false);
             player.GetComponent<CharacterMovement>().m_canMove = true;
+            player.GetComponent<CharacterMovement>().m_canRotate = true;
 
         }
 

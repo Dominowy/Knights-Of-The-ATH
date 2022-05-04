@@ -18,6 +18,7 @@ public class CharacterMovement : MonoBehaviour
 
     // If using skills this is set to false
     public bool m_canMove = true;
+    public bool m_canRotate = true;
 
     private Vector3 playerVelocity = Vector3.zero;
 
@@ -74,10 +75,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-       
         Gravity();
-
-
 
         if (m_canMove == true)
         {
@@ -85,7 +83,11 @@ public class CharacterMovement : MonoBehaviour
         }
 
         mousePos = input.InputControls.MousePosition.ReadValue<Vector2>();
-        ProcessRotation(mousePos);
+
+        if (m_canRotate == true)
+        {
+         ProcessRotation(mousePos);
+        }
     }
 
     public void ProcessMove(Vector2 input)

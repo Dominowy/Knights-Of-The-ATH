@@ -38,8 +38,12 @@ public class SelectedEnemy : MonoBehaviour
         }
         else
         {
+
             t = 0;
             player.GetComponent<CharacterMovement>().m_canMove = true;
+            
+            // Kill Bot
+            target.GetComponent<EnemyAi>().TakeDamage(100);
         }
        
     }
