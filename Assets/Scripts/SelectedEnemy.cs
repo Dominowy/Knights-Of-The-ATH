@@ -10,6 +10,7 @@ public class SelectedEnemy : MonoBehaviour
 
 
     public bool canMove = true;
+    public bool canRetarget = true;
 
     // Force choke vars
     public float forceChokeLift = 2f;
@@ -23,7 +24,7 @@ public class SelectedEnemy : MonoBehaviour
 
     }
 
-   void ForceChoke()
+   void ForceChoke(GameObject bot)
     {
         canMove = false;
         SkillDuration -= Time.deltaTime;
@@ -33,7 +34,7 @@ public class SelectedEnemy : MonoBehaviour
         // Here effects of force choke - transform, animation, -HP
         if (SkillDuration > 0.6)
         {
-            target.transform.position = new Vector3(target.transform.position.x, Mathf.Lerp(1, forceChokeLift, t), target.transform.position.z);
+            bot.transform.position = new Vector3(bot.transform.position.x, Mathf.Lerp(1, forceChokeLift, t), bot.transform.position.z);
 
         }
         else
@@ -43,14 +44,17 @@ public class SelectedEnemy : MonoBehaviour
             player.GetComponent<CharacterMovement>().m_canMove = true;
             
             // Kill Bot
-            target.GetComponent<EnemyAi>().TakeDamage(100);
+            bot.GetComponent<EnemyAi>().TakeDamage(100);
         }
        
     }
 
     void Update()
     {
-        target = player.GetComponent<TargetingSystem>().currentEnemyCopy;
+        if (canRetarget)
+        {
+            target = player.GetComponent<TargetingSystem>().currentEnemyCopy;
+        }
         activeChokeSkill = player.GetComponent<Abilities>().isActive;
 
         var offset = new Vector3(0.0f, 2.5f, -2.0f);
@@ -70,13 +74,14 @@ public class SelectedEnemy : MonoBehaviour
         // Force Choke
         if (activeChokeSkill)
         {
-            ForceChoke();
+            ForceChoke(target);
             player.GetComponent<CharacterMovement>().m_canMove = false;
+            canRetarget = false;
         }
-
         else
         {
             canMove = true;
+            canRetarget = true;
             SkillDuration = 3f;
 
         }

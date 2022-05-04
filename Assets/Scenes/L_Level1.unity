@@ -2876,6 +2876,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetUI: {fileID: 656518138}
   canMove: 1
+  canRetarget: 0
   forceChokeLift: 2
   SkillDuration: 3
   activeChokeSkill: 0
@@ -9982,6 +9983,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetUI: {fileID: 0}
   canMove: 1
+  canRetarget: 0
   forceChokeLift: 2
   SkillDuration: 3
   activeChokeSkill: 0
@@ -17376,6 +17378,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetUI: {fileID: 0}
   canMove: 1
+  canRetarget: 0
   forceChokeLift: 2
   SkillDuration: 3
   activeChokeSkill: 0
@@ -17976,6 +17979,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   raycastOffset: {x: 0, y: 0.5, z: 0}
+  enemyColliders: []
+  targetUI: {fileID: 1731176959}
   currentEnemy: {fileID: 0}
   currentEnemyCopy: {fileID: 0}
   player: {fileID: 3217326273807147877}
@@ -20191,6 +20196,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetUI: {fileID: 656518138}
   canMove: 1
+  canRetarget: 0
   forceChokeLift: 2
   SkillDuration: 3
   activeChokeSkill: 0

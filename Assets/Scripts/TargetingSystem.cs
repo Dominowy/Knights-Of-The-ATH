@@ -12,7 +12,8 @@ public class TargetingSystem : MonoBehaviour
 
     [SerializeField] private Vector3 raycastOffset = new Vector3(0, 0.5f, 0);
 
-    private Collider[] enemyColliders;
+    public Collider[] enemyColliders;
+    public GameObject targetUI;
 
 
     private int howManyEnemies;
@@ -47,6 +48,14 @@ public class TargetingSystem : MonoBehaviour
     {
         //getting all the colliders within a given range
         enemyColliders = Physics.OverlapSphere(transform.position + raycastOffset, rangeOfSphere, enemiesMask);
+
+        if (enemyColliders.Length ==0)
+        {
+            currentEnemy = null;
+            targetUI.SetActive(false);
+
+        }
+
 
         //counting enemies amount just once and assigning it to variable, optimal way
         howManyEnemies = enemyColliders.Length;
