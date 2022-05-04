@@ -49,8 +49,8 @@ public class IsoCam : MonoBehaviour
 		{
 			cam1.orthographicSize -= 0.1f;
 		}
-		var currentPos = Quaternion.Euler(30f, 90f * (rotModulo - 1), 0f);
-		var nextPos = Quaternion.Euler(30f, 90f * rotModulo, 0f);
+		var currentPos = Quaternion.Euler(30f, 90f * rotModulo, 0f);
+		var nextPos = Quaternion.Euler(30f, 90f * (rotModulo+1), 0f);
 		pivot.transform.rotation = Quaternion.Slerp(currentPos, nextPos, 0.05f * Time.deltaTime);
 	}
 
