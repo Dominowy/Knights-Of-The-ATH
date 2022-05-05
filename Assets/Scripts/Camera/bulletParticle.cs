@@ -36,8 +36,17 @@ public class bulletParticle : MonoBehaviour
     {
         int events = particleSystem.GetCollisionEvents(other, colEvents);
 
-        Debug.Log("Working");
-        
+        if (other.name.Equals("Player"))
+        {
+            Debug.Log("Player HIT");
+            Destroy(this.gameObject);
+        }
+           
+        else
+        {
+            Debug.Log("Missed!!");
+            Destroy(this.gameObject, 3);
+        }  
         // TODO Damage to player system
 
     }
