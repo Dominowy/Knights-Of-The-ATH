@@ -5,6 +5,15 @@ using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
+
+    // Animator
+    public Animator botanimator;
+    public bool isDead = false;
+    /// <summary>
+    /// Temp !!!
+    /// </summary>
+
+
     public NavMeshAgent agent;
 
     public Transform player;
@@ -41,35 +50,56 @@ public class EnemyAi : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         patrollingRadius = Random.Range(8, 10);
         startingPosition = transform.position;
+
+    }
+
+    private void Start()
+    {
+            
     }
 
     private void Update()
     {
-        //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        if (!playerInSightRange && !playerInAttackRange && !tooFarAway)
+        if (isDead == false)
         {
-            Patroling();
-        }
-        if (playerInSightRange && !playerInAttackRange && !tooFarAway)
-        {
-            float distance = Vector3.Distance(agent.transform.position, startingPosition);
-            ChasePlayer();
+                //Check for sight and attack range
+                playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+                playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+                if (!playerInSightRange && !playerInAttackRange && !tooFarAway)
+                {
+                    Patroling();
+                    botanimator.SetFloat("Move", 0.5f);
+                    botanimator.SetFloat("Attacking", 0.0f);
+                }
+                if (playerInSightRange && !playerInAttackRange && !tooFarAway)
+                {
+                    float distance = Vector3.Distance(agent.transform.position, startingPosition);
+                    ChasePlayer();
 
-            if (distance > 15)
-                tooFarAway = true;
+                    botanimator.SetFloat("Move", 1f);
+                    botanimator.SetFloat("Attacking", 0.5f);
 
-        }
+                    if (distance > 15)
+                        tooFarAway = true;
 
-        if (playerInAttackRange && playerInSightRange && !tooFarAway)
-        {
-            AttackPlayer();
-        }
+                }
 
-        if (tooFarAway)
-        {
-            ResetPosition();
+                if (playerInAttackRange && playerInSightRange && !tooFarAway)
+                {
+                    AttackPlayer();
+
+                    botanimator.SetFloat("Move", 0f);
+                    botanimator.SetFloat("Attacking", 1f);
+                }
+
+                if (tooFarAway)
+                {
+                    ResetPosition();
+
+                    botanimator.SetFloat("Move", 0.0f);
+                    botanimator.SetFloat("Attacking", 0.0f);
+                }
+
         }
     }
 
@@ -99,6 +129,10 @@ public class EnemyAi : MonoBehaviour
         if (walkPointSet && !chased && !lookAround)
         {
             agent.SetDestination(walkPoint);
+
+            // Temp
+            botanimator.SetFloat("Move", 0.5f);
+            
         }
             
         if (!chased)
@@ -172,13 +206,19 @@ public class EnemyAi : MonoBehaviour
     {
         health -= damage;
 
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        if (health <= 0) Invoke(nameof(DestroyEnemyAnimation), 0.1f);
+        if (health <= 0) Invoke(nameof(DestroyEnemy), 5.5f);
     }
     private void DestroyEnemy()
     {
         Destroy(gameObject);
     }
-
+    private void DestroyEnemyAnimation()
+    {
+        botanimator.SetTrigger("Dying");
+        isDead = true;
+       
+    }
     private void OnDrawGizmosSelected()
     {
 /*        Gizmos.color = Color.red;
