@@ -47,7 +47,7 @@ public class CharacterMovement : MonoBehaviour
         };
 
         // event na naciskanie PPM
-        input.InputControls.MouseButtonActions.performed += ctx =>
+        input.InputControls.MouseButtonActionsTarget.performed += ctx =>
         {
             PPMLock = !PPMLock;
         };

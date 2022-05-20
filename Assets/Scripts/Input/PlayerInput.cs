@@ -46,9 +46,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""MouseButtonActions"",
+                    ""name"": ""MouseButtonActionsTarget"",
                     ""type"": ""Button"",
                     ""id"": ""a369722e-81ba-46e0-add3-a90b3959f8af"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseButtonActionsAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6bfc96c-ea74-4f87-950c-20725618a56b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -156,7 +165,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseButtonActions"",
+                    ""action"": ""MouseButtonActionsTarget"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -190,6 +199,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SwitchTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ed034c37-57b4-4246-94d5-cd37945975a3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseButtonActionsAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -846,7 +866,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b2b96e46-c1d0-4a16-aed8-a50aba937b48"",
-                    ""path"": ""<iOSGameController>/rightStick/down"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -874,7 +894,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_InputControls = asset.FindActionMap("InputControls", throwIfNotFound: true);
         m_InputControls_Movement = m_InputControls.FindAction("Movement", throwIfNotFound: true);
         m_InputControls_MousePosition = m_InputControls.FindAction("MousePosition", throwIfNotFound: true);
-        m_InputControls_MouseButtonActions = m_InputControls.FindAction("MouseButtonActions", throwIfNotFound: true);
+        m_InputControls_MouseButtonActionsTarget = m_InputControls.FindAction("MouseButtonActionsTarget", throwIfNotFound: true);
+        m_InputControls_MouseButtonActionsAttack = m_InputControls.FindAction("MouseButtonActionsAttack", throwIfNotFound: true);
         m_InputControls_Zoom = m_InputControls.FindAction("Zoom", throwIfNotFound: true);
         m_InputControls_SwitchCamera = m_InputControls.FindAction("SwitchCamera", throwIfNotFound: true);
         m_InputControls_SwitchTarget = m_InputControls.FindAction("SwitchTarget", throwIfNotFound: true);
@@ -962,7 +983,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IInputControlsActions m_InputControlsActionsCallbackInterface;
     private readonly InputAction m_InputControls_Movement;
     private readonly InputAction m_InputControls_MousePosition;
-    private readonly InputAction m_InputControls_MouseButtonActions;
+    private readonly InputAction m_InputControls_MouseButtonActionsTarget;
+    private readonly InputAction m_InputControls_MouseButtonActionsAttack;
     private readonly InputAction m_InputControls_Zoom;
     private readonly InputAction m_InputControls_SwitchCamera;
     private readonly InputAction m_InputControls_SwitchTarget;
@@ -972,7 +994,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputControlsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_InputControls_Movement;
         public InputAction @MousePosition => m_Wrapper.m_InputControls_MousePosition;
-        public InputAction @MouseButtonActions => m_Wrapper.m_InputControls_MouseButtonActions;
+        public InputAction @MouseButtonActionsTarget => m_Wrapper.m_InputControls_MouseButtonActionsTarget;
+        public InputAction @MouseButtonActionsAttack => m_Wrapper.m_InputControls_MouseButtonActionsAttack;
         public InputAction @Zoom => m_Wrapper.m_InputControls_Zoom;
         public InputAction @SwitchCamera => m_Wrapper.m_InputControls_SwitchCamera;
         public InputAction @SwitchTarget => m_Wrapper.m_InputControls_SwitchTarget;
@@ -991,9 +1014,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MousePosition.started -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMousePosition;
-                @MouseButtonActions.started -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMouseButtonActions;
-                @MouseButtonActions.performed -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMouseButtonActions;
-                @MouseButtonActions.canceled -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMouseButtonActions;
+                @MouseButtonActionsTarget.started -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMouseButtonActionsTarget;
+                @MouseButtonActionsTarget.performed -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMouseButtonActionsTarget;
+                @MouseButtonActionsTarget.canceled -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMouseButtonActionsTarget;
+                @MouseButtonActionsAttack.started -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMouseButtonActionsAttack;
+                @MouseButtonActionsAttack.performed -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMouseButtonActionsAttack;
+                @MouseButtonActionsAttack.canceled -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnMouseButtonActionsAttack;
                 @Zoom.started -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnZoom;
                 @Zoom.performed -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnZoom;
                 @Zoom.canceled -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnZoom;
@@ -1013,9 +1039,12 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
-                @MouseButtonActions.started += instance.OnMouseButtonActions;
-                @MouseButtonActions.performed += instance.OnMouseButtonActions;
-                @MouseButtonActions.canceled += instance.OnMouseButtonActions;
+                @MouseButtonActionsTarget.started += instance.OnMouseButtonActionsTarget;
+                @MouseButtonActionsTarget.performed += instance.OnMouseButtonActionsTarget;
+                @MouseButtonActionsTarget.canceled += instance.OnMouseButtonActionsTarget;
+                @MouseButtonActionsAttack.started += instance.OnMouseButtonActionsAttack;
+                @MouseButtonActionsAttack.performed += instance.OnMouseButtonActionsAttack;
+                @MouseButtonActionsAttack.canceled += instance.OnMouseButtonActionsAttack;
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
@@ -1244,7 +1273,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
-        void OnMouseButtonActions(InputAction.CallbackContext context);
+        void OnMouseButtonActionsTarget(InputAction.CallbackContext context);
+        void OnMouseButtonActionsAttack(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnSwitchCamera(InputAction.CallbackContext context);
         void OnSwitchTarget(InputAction.CallbackContext context);

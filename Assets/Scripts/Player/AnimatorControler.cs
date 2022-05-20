@@ -69,5 +69,6 @@ public class AnimatorControler : MonoBehaviour
             animator.SetFloat("Strafe", 0);
             animator.SetFloat("ForBackWard", 0);
         }
+
     }
 }

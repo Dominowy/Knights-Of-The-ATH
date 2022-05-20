@@ -75,7 +75,7 @@ public class SelectedEnemy : MonoBehaviour
         }
 
         // Force Choke
-        if (activeChokeSkill)
+        if (activeChokeSkill && (target != null))
         {
             ForceChoke(target);
             player.GetComponent<CharacterMovement>().m_canMove = false;

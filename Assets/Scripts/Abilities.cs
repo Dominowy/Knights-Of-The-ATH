@@ -7,13 +7,32 @@ public class Abilities : MonoBehaviour
 {
 
     PlayerInput skillControls;
-
+    Animator animator;
     public GameObject target;
+
+    // Sabre colider
+    public GameObject sabreColider;
+
+
+    // Timer for animation to finish
+    public float animationTimer = 2f;
 
 
     private void Awake()
     {
         skillControls = new PlayerInput();
+
+        skillControls.InputControls.MouseButtonActionsAttack.performed += ctx =>
+        {
+            animator.SetTrigger("isAttacking");
+            animator.SetBool("LockedWhileattacking", true);
+            animationTimer = 1;
+
+            animator.SetTrigger("Slash");
+            sabreColider.SetActive(true);
+
+
+        };
     }
 
     private void OnEnable()
@@ -68,6 +87,9 @@ public class Abilities : MonoBehaviour
 
     void Start()
     {
+        animator = transform.GetChild(0).GetComponent<Animator>();
+
+
         abilityImage1.fillAmount = 0;
         abilityImage2.fillAmount = 0;
         abilityImage3.fillAmount = 0;
@@ -80,7 +102,14 @@ public class Abilities : MonoBehaviour
     {
         // Refactor this pls
         channeling -= Time.deltaTime;
+        animationTimer -= Time.deltaTime;
 
+        if (animationTimer < 0)
+        {
+            animator.SetBool("LockedWhileattacking", true);
+            sabreColider.SetActive(false);
+
+        }
 
         Ability1();
         Ability2();
@@ -125,9 +154,10 @@ public class Abilities : MonoBehaviour
 
         if (isSkill1Pressed && isCooldown == false && target != null)
         {
-            Debug.Log("Force Choke");
             isActive = true;
-
+            animationTimer = 3;
+            animator.SetTrigger("isAttacking");
+            animator.SetTrigger("Choke");
             LockOnSkill();
 
 
@@ -170,17 +200,20 @@ public class Abilities : MonoBehaviour
             skillshot.GetComponent<Image>().enabled = false;
 
             LockOnSkill();
-            channeling = 1f;
+            channeling = 3f;
+            animationTimer = 3;
+
+            animator.SetTrigger("isAttacking");
+            animator.SetTrigger("Lightning");
         }
 
-       if (channeling > 0.2f)
+       if (channeling > 0.1f && channeling < 2.0f)
        {
             S2_VFX.SetActive(true);
-            player.GetComponent<CharacterMovement>().m_canMove = false;
-            player.GetComponent<CharacterMovement>().m_canRotate = false;
+           
        }
        
-      else if (channeling < 0.2f)
+      else if (channeling < 0.1f)
       {
             S2_VFX.SetActive(false);
             player.GetComponent<CharacterMovement>().m_canMove = true;
@@ -220,6 +253,9 @@ public class Abilities : MonoBehaviour
             abilityImage3.fillAmount = 1;
 
             LockOnSkill();
+
+            animator.SetTrigger("isAttacking");
+            animator.SetTrigger("SpinAttack");
         }
 
         if (isCooldown3)
@@ -240,5 +276,7 @@ public class Abilities : MonoBehaviour
     {
         Debug.Log("PPMlock");
         player.GetComponent<CharacterMovement>().PPMLock = true;
+        player.GetComponent<CharacterMovement>().m_canMove = false;
+        player.GetComponent<CharacterMovement>().m_canRotate = false;
     }
 }

@@ -24,9 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MouseButtonActions",
+                    "name": "MouseButtonActionsTarget",
                     "type": "Button",
                     "id": "a369722e-81ba-46e0-add3-a90b3959f8af",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MouseButtonActionsAttack",
+                    "type": "Button",
+                    "id": "c6bfc96c-ea74-4f87-950c-20725618a56b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -134,7 +143,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseButtonActions",
+                    "action": "MouseButtonActionsTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwitchTarget",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ed034c37-57b4-4246-94d5-cd37945975a3",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseButtonActionsAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -824,7 +844,7 @@
                 {
                     "name": "",
                     "id": "b2b96e46-c1d0-4a16-aed8-a50aba937b48",
-                    "path": "<iOSGameController>/rightStick/down",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
