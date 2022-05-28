@@ -9,10 +9,11 @@ public class Abilities : MonoBehaviour
     PlayerInput skillControls;
     Animator animator;
     public GameObject target;
+    public Transform player;
 
     // Sabre colider
     public GameObject sabreColider;
-
+    public GameObject sabreSkillColider;
 
     // Timer for animation to finish
     public float animationTimer = 2f;
@@ -50,58 +51,52 @@ public class Abilities : MonoBehaviour
 
     public bool isMoving = false;
 
-    [Header("Skill 1")]
-    public Image abilityImage1;
+    [Header("Force Choke")]
+    public Image chokeCDImg;
     public float cooldown1 = 3;
     bool isCooldown = false;
     bool isSkill1Pressed = false;
     public bool isActive = false;
+    public float chokeChanneling = 0;
 
-    Vector3 position;
     public Canvas ability1Canvas;
-    public Image skillshot;
-    public Transform player;
 
 
-    [Header("Skill 2")]
-    public Image abilityImage2;
+    [Header("Force Lightning")]
+    public Image lightningCDImg;
     public float cooldown2 = 10;
     bool isCooldown2 = false;
     bool isSkill2Pressed = false;
     public bool S2_VFXactive = false;
-    public float channeling = 0;
+    public float lightningChanneling = 0;
     public GameObject S2_VFX;
 
-    public Image targetCircle;
-    public Image indicatorRangeCircle;
-    public Canvas ability2Canvas;
-    private Vector3 posUp;
-    public float maxAbility2Distance;
-
-
-    [Header("Skill 3")]
-    public Image abilityImage3;
+    [Header("Sabre Attack")]
+    public Image sabreCDImg;
     public float cooldown3 = 7;
     bool isCooldown3 = false;
     bool isSkill3Pressed = false;
+    public float channeling = 0;
+    public float cdTime = 0;
+
+    
 
     void Start()
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
 
-
-        abilityImage1.fillAmount = 0;
-        abilityImage2.fillAmount = 0;
-        abilityImage3.fillAmount = 0;
-
-        skillshot.GetComponent<Image>().enabled = false;
-        targetCircle.GetComponent<Image>().enabled = false;
-        indicatorRangeCircle.GetComponent<Image>().enabled = false;
+        chokeCDImg.fillAmount = 0;
+        lightningCDImg.fillAmount = 0;
+        sabreCDImg.fillAmount = 0;
     }
-        void Update()
+
+    void Update()
     {
-        // Refactor this pls
+        chokeChanneling -= Time.deltaTime;
+        lightningChanneling -= Time.deltaTime;
         channeling -= Time.deltaTime;
+        cdTime -= Time.deltaTime;
+
         animationTimer -= Time.deltaTime;
 
         if (animationTimer < 0)
@@ -111,78 +106,48 @@ public class Abilities : MonoBehaviour
 
         }
 
-        Ability1();
-        Ability2();
-        Ability3();
 
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(skillControls.InputControls.MousePosition.ReadValue<Vector2>());
+        isSkill1Pressed = skillControls.Skills.Skill1.IsPressed();
+        isSkill2Pressed = skillControls.Skills.Skill2.IsPressed();
+        isSkill3Pressed = skillControls.Skills.Skill3.IsPressed();
 
-        //Ability 1 Inputs
-        if(Physics.Raycast(ray,out hit, Mathf.Infinity))
+        if (isSkill1Pressed || (chokeChanneling > 0))
         {
-            position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            Ability1();
         }
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        if (isSkill2Pressed || (lightningChanneling > 0))
         {
-            if(hit.collider.gameObject != this.gameObject)
-            {
-                posUp = new Vector3(hit.point.x, 10f, hit.point.z);
-                position = hit.point;
-            }
+            Ability2();
         }
-
-
-        Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
-        ability1Canvas.transform.rotation = Quaternion.Lerp(transRot, ability1Canvas.transform.rotation, 0f);
-
-        var hitPosDir = (hit.point - transform.position).normalized;
-        float distance = Vector3.Distance(hit.point, transform.position);
-        distance = Mathf.Min(distance, maxAbility2Distance);
-
-        var newHitPos = transform.position + hitPosDir * distance;
-        ability2Canvas.transform.position = (newHitPos);
-
+        if (isSkill3Pressed || (cdTime > 0))
+        {
+            Ability3();
+        }
     }
 
     void Ability1()
     {
-        isSkill1Pressed = skillControls.Skills.Skill1.IsPressed();
         target = player.GetComponent<TargetingSystem>().currentEnemyCopy;
 
-
-        if (isSkill1Pressed && isCooldown == false && target != null)
+        if (isCooldown == false && target != null)
         {
+            chokeChanneling = 3f;
             isActive = true;
             animationTimer = 3;
             animator.SetTrigger("isAttacking");
             animator.SetTrigger("Choke");
             LockOnSkill();
 
-
-
-
-            //Disable Other UI
-            skillshot.GetComponent<Image>().enabled = true;
-            indicatorRangeCircle.GetComponent<Image>().enabled = false;
-            targetCircle.GetComponent<Image>().enabled = false;
-        }
-
-        if (skillshot.GetComponent<Image>().enabled == true || isMoving)
-        {
-            isCooldown = true;
-            abilityImage1.fillAmount = 1;
+            chokeCDImg.fillAmount = 1;
         }
 
         if(isCooldown)
         {
-            abilityImage1.fillAmount -= 1 / cooldown1 * Time.deltaTime;
-            skillshot.GetComponent<Image>().enabled = false;
+            chokeCDImg.fillAmount -= 1 / cooldown1 * Time.deltaTime;
 
-            if (abilityImage1.fillAmount <= 0)
+            if (chokeCDImg.fillAmount <= 0)
             {
-                abilityImage1.fillAmount = 0;
+                chokeCDImg.fillAmount = 0;
                 isCooldown = false;
                 isActive = false;
             }
@@ -191,80 +156,84 @@ public class Abilities : MonoBehaviour
 
     void Ability2()
     {
-        isSkill2Pressed = skillControls.Skills.Skill2.IsPressed();
 
-        if (isSkill2Pressed && isCooldown2 == false)
-        {
-            indicatorRangeCircle.GetComponent<Image>().enabled = true;
-            targetCircle.GetComponent<Image>().enabled = true;
-            skillshot.GetComponent<Image>().enabled = false;
+       if (isCooldown2 == false)
+       {
+       
+           LockOnSkill();
+           lightningChanneling = 3f;
+           animationTimer = 3;
+       
+           animator.SetTrigger("isAttacking");
+           animator.SetTrigger("Lightning");
+       
+           lightningCDImg.fillAmount = 1;
+       
+           isCooldown2 = true;
+       }
 
-            LockOnSkill();
-            channeling = 3f;
-            animationTimer = 3;
-
-            animator.SetTrigger("isAttacking");
-            animator.SetTrigger("Lightning");
-        }
-
-       if (channeling > 0.1f && channeling < 2.0f)
+       if (lightningChanneling > 0.1f && lightningChanneling < 2.0f)
        {
             S2_VFX.SetActive(true);
            
        }
        
-      else if (channeling < 0.1f)
-      {
-            S2_VFX.SetActive(false);
-            player.GetComponent<CharacterMovement>().m_canMove = true;
-            player.GetComponent<CharacterMovement>().m_canRotate = true;
+       else if (lightningChanneling < 0.1f)
+       {
+           S2_VFX.SetActive(false);
+           player.GetComponent<CharacterMovement>().m_canMove = true;
+           player.GetComponent<CharacterMovement>().m_canRotate = true;
 
-        }
+       }
 
+       
+       if (isCooldown2)
+       {
+           lightningCDImg.fillAmount -= 1 / cooldown2 * Time.deltaTime;
 
-        if (targetCircle.GetComponent<Image>().enabled == true || isMoving)
-        {
-            isCooldown2 = true;
-            abilityImage2.fillAmount = 1;
-        }
-
-        if (isCooldown2)
-        {
-            abilityImage2.fillAmount -= 1 / cooldown2 * Time.deltaTime;
-
-            indicatorRangeCircle.GetComponent<Image>().enabled = false;
-            targetCircle.GetComponent<Image>().enabled = false;
-
-            if (abilityImage2.fillAmount <= 0)
-            {
-                abilityImage2.fillAmount = 0;
-                isCooldown2 = false;
-            }
-        }
+           if (lightningCDImg.fillAmount <= 0)
+           {
+               lightningCDImg.fillAmount = 0;
+               isCooldown2 = false;
+           }
+       }
+       
     }
 
     void Ability3()
     {
-        isSkill3Pressed = skillControls.Skills.Skill3.IsPressed();
 
-        if (isSkill3Pressed && isCooldown3 == false)
+        if (isCooldown3 == false)
         {
+            channeling = 3.5f;
+            cdTime = 7;
             isCooldown3 = true;
-            abilityImage3.fillAmount = 1;
+            sabreCDImg.fillAmount = 1;
+        }
 
+        if (channeling == 3.5)
+        {
             LockOnSkill();
-
             animator.SetTrigger("isAttacking");
             animator.SetTrigger("SpinAttack");
+            sabreSkillColider.SetActive(true);
+        }
+
+        else if (channeling < 0)
+        {
+           player.GetComponent<CharacterMovement>().m_canMove = true;
+           player.GetComponent<CharacterMovement>().m_canRotate = true;
+           sabreSkillColider.SetActive(false);
+
         }
 
         if (isCooldown3)
         {
-            abilityImage3.fillAmount -= 1 / cooldown3 * Time.deltaTime;
+            sabreCDImg.fillAmount -= 1 / cooldown3 * Time.deltaTime;
 
-            if (abilityImage3.fillAmount <= 0)
+            if (sabreCDImg.fillAmount <= 0)
             {
-                abilityImage3.fillAmount = 0;
+                sabreCDImg.fillAmount = 0;
                 isCooldown3 = false;
             }
         }
@@ -274,7 +243,7 @@ public class Abilities : MonoBehaviour
 
     void LockOnSkill()
     {
-        Debug.Log("PPMlock");
+        Debug.Log("lockonSkill");
         player.GetComponent<CharacterMovement>().PPMLock = true;
         player.GetComponent<CharacterMovement>().m_canMove = false;
         player.GetComponent<CharacterMovement>().m_canRotate = false;
