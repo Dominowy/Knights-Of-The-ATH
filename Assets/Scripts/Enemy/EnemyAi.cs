@@ -14,6 +14,11 @@ public class EnemyAi : MonoBehaviour
     /// </summary>
 
 
+    // Test snipera
+    public bool isSniper;
+    public float timeToFinnishlaser;
+
+
     public NavMeshAgent agent;
 
     public Transform player;
@@ -189,19 +194,41 @@ public class EnemyAi : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            firePoint = transform.Find("firePoint").transform.position;
-            Rigidbody rb = Instantiate(projectile, firePoint, gameObject.transform.rotation).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 0.05f, ForceMode.Impulse);
 
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
+            if (isSniper)
+            {
+                projectile.SetActive(true);
+                Invoke(nameof(ResetLaser), timeToFinnishlaser);
+
+
+                alreadyAttacked = true;
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
+            }
+            else
+            {
+                firePoint = transform.Find("firePoint").transform.position;
+                Rigidbody rb = Instantiate(projectile, firePoint, gameObject.transform.rotation).GetComponent<Rigidbody>();
+                rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+                rb.AddForce(transform.up * 0.05f, ForceMode.Impulse);
+
+                alreadyAttacked = true;
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            }
         }
     }
     private void ResetAttack()
     {
         alreadyAttacked = false;
     }
+
+    private void ResetLaser()
+    {
+        projectile.SetActive(false);
+    }
+
+
     public void TakeDamage(int damage)
     {
         health -= damage;
