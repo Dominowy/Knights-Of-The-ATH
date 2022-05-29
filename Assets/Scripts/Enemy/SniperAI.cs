@@ -156,6 +156,10 @@ namespace Assets.Scripts.Enemy
         [System.Obsolete]
         void AttackPlayer()
         {
+            Vector3 temp = player.transform.position;
+            temp.y += 1f;
+            projectile.transform.LookAt(temp);
+            
             agent.SetDestination(transform.position);
 
             transform.LookAt(player);
