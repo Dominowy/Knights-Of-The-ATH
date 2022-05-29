@@ -89,6 +89,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""c80af75a-927b-4ee2-afb8-9588b0cdaae8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -210,6 +219,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseButtonActionsAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e32a2a1-09e5-422c-8ff1-dcd91a62142f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -899,6 +919,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_InputControls_Zoom = m_InputControls.FindAction("Zoom", throwIfNotFound: true);
         m_InputControls_SwitchCamera = m_InputControls.FindAction("SwitchCamera", throwIfNotFound: true);
         m_InputControls_SwitchTarget = m_InputControls.FindAction("SwitchTarget", throwIfNotFound: true);
+        m_InputControls_PauseGame = m_InputControls.FindAction("PauseGame", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -988,6 +1009,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_InputControls_Zoom;
     private readonly InputAction m_InputControls_SwitchCamera;
     private readonly InputAction m_InputControls_SwitchTarget;
+    private readonly InputAction m_InputControls_PauseGame;
     public struct InputControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -999,6 +1021,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Zoom => m_Wrapper.m_InputControls_Zoom;
         public InputAction @SwitchCamera => m_Wrapper.m_InputControls_SwitchCamera;
         public InputAction @SwitchTarget => m_Wrapper.m_InputControls_SwitchTarget;
+        public InputAction @PauseGame => m_Wrapper.m_InputControls_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_InputControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1029,6 +1052,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @SwitchTarget.started -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnSwitchTarget;
                 @SwitchTarget.performed -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnSwitchTarget;
                 @SwitchTarget.canceled -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnSwitchTarget;
+                @PauseGame.started -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnPauseGame;
+                @PauseGame.performed -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnPauseGame;
+                @PauseGame.canceled -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnPauseGame;
             }
             m_Wrapper.m_InputControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -1054,6 +1080,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @SwitchTarget.started += instance.OnSwitchTarget;
                 @SwitchTarget.performed += instance.OnSwitchTarget;
                 @SwitchTarget.canceled += instance.OnSwitchTarget;
+                @PauseGame.started += instance.OnPauseGame;
+                @PauseGame.performed += instance.OnPauseGame;
+                @PauseGame.canceled += instance.OnPauseGame;
             }
         }
     }
@@ -1278,6 +1307,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnZoom(InputAction.CallbackContext context);
         void OnSwitchCamera(InputAction.CallbackContext context);
         void OnSwitchTarget(InputAction.CallbackContext context);
+        void OnPauseGame(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
