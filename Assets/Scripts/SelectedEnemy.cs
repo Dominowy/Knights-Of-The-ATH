@@ -45,7 +45,7 @@ public class SelectedEnemy : MonoBehaviour
             player.GetComponent<CharacterMovement>().m_canMove = true;
             
             // Kill Bot
-            bot.GetComponent<EnemyAi>().TakeDamage(100);
+            bot.GetComponent<IEnemyAi>().TakeDamage(100);
         }
        
     }

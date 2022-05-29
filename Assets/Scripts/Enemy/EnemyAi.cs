@@ -2,16 +2,17 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Enemy;
 
-public class EnemyAi : MonoBehaviour
+public class IEnemyAi : MonoBehaviour
 {
-
-    // Animator
+    //Po refactoringu
+    private EnemyAnimator animator;
+    private const int TOO_FAR_DISTANCE = 15;
+    private Lerp lerp;
     public Animator botanimator;
     public bool isDead = false;
-    /// <summary>
-    /// Temp !!!
-    /// </summary>
+  
 
 
     // Test snipera
@@ -44,10 +45,13 @@ public class EnemyAi : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject projectile;
+    public GameObject projectile2;
+    public GameObject projectile3;
 
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+
 
     private void Awake()
     {
@@ -55,58 +59,35 @@ public class EnemyAi : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         patrollingRadius = Random.Range(8, 10);
         startingPosition = transform.position;
-
+        animator = new EnemyAnimator(botanimator);
+        lerp = new Lerp();
     }
-
-    private void Start()
-    {
-            
-    }
-
-    private void Update()
-    {
-        if (isDead == false)
+      private void Update()
+      {
+        if (!CheckIAmDead())
         {
-                //Check for sight and attack range
-                playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-                playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-                if (!playerInSightRange && !playerInAttackRange && !tooFarAway)
-                {
-                    Patroling();
-                    botanimator.SetFloat("Move", 0.5f);
-                    botanimator.SetFloat("Attacking", 0.0f);
-                }
-                if (playerInSightRange && !playerInAttackRange && !tooFarAway)
-                {
-                    float distance = Vector3.Distance(agent.transform.position, startingPosition);
-                    ChasePlayer();
+            CalculateElapsedTime();
 
-                    botanimator.SetFloat("Move", 1f);
-                    botanimator.SetFloat("Attacking", 0.5f);
+            TryPatrolling();
 
-                    if (distance > 15)
-                        tooFarAway = true;
+            TryChase();
 
-                }
+            TryAttack();
 
-                if (playerInAttackRange && playerInSightRange && !tooFarAway)
-                {
-                    AttackPlayer();
-
-                    botanimator.SetFloat("Move", 0f);
-                    botanimator.SetFloat("Attacking", 1f);
-                }
-
-                if (tooFarAway)
-                {
-                    ResetPosition();
-
-                    botanimator.SetFloat("Move", 0.0f);
-                    botanimator.SetFloat("Attacking", 0.0f);
-                }
-
+            CheckIsTooFarAway();
         }
     }
+
+    private void SetPlayerIsToFarAway()
+    {
+        tooFarAway = true;
+    }
+
+    private bool CheckIAmDead()
+    {
+        return isDead;
+    }
+
 
     private void ResetPosition()
     {
@@ -173,8 +154,7 @@ public class EnemyAi : MonoBehaviour
         }
         while (Vector3.Distance(walkPoint, startingPosition) > patrollingRadius);     
        
-            walkPointSet = true;
-         
+            walkPointSet = true;      
     }
 
     private void ChasePlayer()
@@ -186,7 +166,10 @@ public class EnemyAi : MonoBehaviour
     [System.Obsolete]
     private void AttackPlayer()
     {
-
+        Vector3 temp = player.position;
+        temp.y += 1;
+        projectile.transform.LookAt(temp);
+        projectile3.transform.LookAt(temp);
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
 
@@ -200,7 +183,10 @@ public class EnemyAi : MonoBehaviour
             {
                 projectile.SetActive(true);
                 Invoke(nameof(ResetLaser), timeToFinnishlaser);
-
+                firePoint = transform.Find("firePoint").transform.position;
+                Rigidbody rb = Instantiate(projectile2, firePoint, gameObject.transform.rotation).GetComponent<Rigidbody>();
+                rb.AddForce(transform.forward * 18f, ForceMode.Impulse);
+                rb.AddForce(transform.up * 0.05f, ForceMode.Impulse);
 
                 alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -246,13 +232,85 @@ public class EnemyAi : MonoBehaviour
         isDead = true;
        
     }
-    private void OnDrawGizmosSelected()
+
+
+
+    private void CalculateElapsedTime()
     {
-/*        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(startingPosition, patrollingRadius);*/
+        if (lerp.CheckAgentVelocity(agent))
+        {
+            lerp.ResetTimeElapsed();
+        }
+        else
+        {
+            lerp.AddDeltaTime();
+        }
+    }
+
+    private bool CheckPlayerInSightRange()
+    {
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        return playerInSightRange;
+    }
+
+    private bool CheckPlayerInAttackRange()
+    {
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        return playerInAttackRange;
+    }
+    private float CalculateDistanceToPlayer()
+    {
+        float distance = Vector3.Distance(agent.transform.position, startingPosition);
+        return distance;
+    }
+
+    private bool CheckPlayerIsToFarAway()
+    {
+        float distanceToPlayer = CalculateDistanceToPlayer();
+        return distanceToPlayer > TOO_FAR_DISTANCE;
+    }
+
+    private void TryPatrolling()
+    {
+        if (!CheckPlayerInSightRange() && !CheckPlayerInAttackRange() && !tooFarAway)
+        {
+            float speed = lerp.CalculatePatrollingSpeed();
+            Patroling();
+            animator.SetAnimatorToPatrolling(speed);
+        }
+    }
+
+    private void TryChase()
+    {
+        if (CheckPlayerInSightRange() && !CheckPlayerInAttackRange() && !tooFarAway)
+        {
+            float speed = lerp.CalculateChaseSpeed();
+            ChasePlayer();
+            animator.SetAnimatorToChasing(speed);
+
+            if (CheckPlayerIsToFarAway())
+                SetPlayerIsToFarAway();
+        }
+    }
+
+    private void TryAttack()
+    {
+        if (CheckPlayerInSightRange() && CheckPlayerInAttackRange() && !tooFarAway)
+        {
+            float speed = lerp.CalculateAttackSpeed();
+            AttackPlayer();
+            animator.SetAnimatorToAttack(speed);
+        }
+    }
+
+    private void CheckIsTooFarAway()
+    {
+
+        if (tooFarAway)
+        {
+            float speed = lerp.CalculatePatrollingSpeed();
+            ResetPosition();
+            animator.SetAnimatorToResetPosition(speed);
+        }
     }
 }

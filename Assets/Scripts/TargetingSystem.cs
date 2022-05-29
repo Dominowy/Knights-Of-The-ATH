@@ -64,6 +64,7 @@ public class TargetingSystem : MonoBehaviour
         {
             foreach (Collider col in enemyColliders)
             {
+                
                 //getting enemy position and assigning it to variable
                 Vector3 enemyPosition = col.transform.position;
                 //getting distance to an enemy and assigning it to variable
