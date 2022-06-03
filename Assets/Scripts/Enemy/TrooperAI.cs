@@ -67,10 +67,6 @@ namespace Assets.Scripts.Enemy
 
                 CheckIsTooFarAway();
             }
-            else
-            {
-                DestroyEnemyAnimation();
-            }
         }
         private void SetPlayerIsToFarAway()
         {

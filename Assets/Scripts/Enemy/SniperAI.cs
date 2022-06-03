@@ -68,11 +68,6 @@ namespace Assets.Scripts.Enemy
 
                 CheckIsTooFarAway();
             }
-            else
-            {
-                DestroyEnemyAnimation();
-                DestroyEnemy();
-            }
         }
         private void SetPlayerIsToFarAway()
         {
@@ -191,7 +186,7 @@ namespace Assets.Scripts.Enemy
         public void TakeDamage(int damage)
         {
             health -= damage;
-
+            Debug.Log("DMG taken " + damage);
             if (health <= 0) Invoke(nameof(DestroyEnemyAnimation), 0.1f);
             if (health <= 0) Invoke(nameof(DestroyEnemy), 5.5f);
         }
