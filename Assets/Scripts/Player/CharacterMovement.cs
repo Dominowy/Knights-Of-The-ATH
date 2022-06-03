@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class CharacterMovement : MonoBehaviour
 {
+    [Header("Camera")]
+    public GameObject CamRotation;
+
     [Header("Combat")]
     [SerializeField] private TargetingSystem targetingSystem;
 
@@ -110,6 +113,7 @@ public class CharacterMovement : MonoBehaviour
 
         // Ismetric
         Vector3 moveDirection = Vector3.zero;
+
         moveDirection.x = input.x;
         moveDirection.z = input.y;
 
