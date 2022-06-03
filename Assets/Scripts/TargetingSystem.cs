@@ -41,6 +41,8 @@ public class TargetingSystem : MonoBehaviour
         {
             currentEnemyCopy = null;
         }
+
+
     }
 
 
@@ -49,11 +51,14 @@ public class TargetingSystem : MonoBehaviour
         //getting all the colliders within a given range
         enemyColliders = Physics.OverlapSphere(transform.position + raycastOffset, rangeOfSphere, enemiesMask);
 
-        if (enemyColliders.Length ==0)
+        if (enemyColliders.Length == 0)
         {
             currentEnemy = null;
             targetUI.SetActive(false);
-
+        }
+        else
+        {
+            targetUI.SetActive(true);
         }
 
 

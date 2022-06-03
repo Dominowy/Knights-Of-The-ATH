@@ -8,6 +8,9 @@ public class CharacterMovement : MonoBehaviour
     [Header("Camera")]
     public GameObject CamRotation;
 
+    [Header("Player")]
+    public GameObject player;
+
     [Header("Combat")]
     [SerializeField] private TargetingSystem targetingSystem;
 
@@ -16,6 +19,9 @@ public class CharacterMovement : MonoBehaviour
     PlayerInput input;
     Vector2 currentMovement;
     bool movementPressed;
+
+
+
 
     // Na PPM lockujemy rotowanie kamery
     public bool PPMLock;
@@ -55,25 +61,19 @@ public class CharacterMovement : MonoBehaviour
             PPMLock = !PPMLock;
         };
 
-      
 
         input.InputControls.SwitchTarget.performed += ctx =>
         {
             LockMode = !LockMode;
         };
 
-
-
     }
-
 
     private void Gravity()
     {
-     
       vSpeed -= gravity * Time.deltaTime;
       playerVelocity.y = -vSpeed;
       characterController.Move(playerVelocity * Time.deltaTime);
-     
     }
 
 
@@ -137,18 +137,16 @@ public class CharacterMovement : MonoBehaviour
 
     public void ProcessRotation(Vector2 input)
     {
-        // Na PPM posta� patrzy i obraca si� w ston� myszki
-        if (PPMLock)
+        if (LockMode)
         {
-            if (LockMode)
-            {
 
-                targetingSystem.TargetEnemies();
-                
-            }
+        targetingSystem.TargetEnemies();
+        player.transform.LookAt(targetingSystem.currentEnemy.transform);
+        }
 
-            else
-            {
+        if (PPMLock)
+        { 
+            // Rotacja na Locku
                 Vector2 difference = input - new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
 
                 difference.Normalize();
@@ -157,11 +155,10 @@ public class CharacterMovement : MonoBehaviour
 
                 transform.rotation = Quaternion.Euler(0f,90 - rotationY, 0f);
 
-            }
-
-
         }
-        else
+
+        // Swobotne chodznie
+        if(PPMLock == false)
         {
             if (characterController.velocity.magnitude != 0)
             {

@@ -21424,7 +21424,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1, y: 1}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1742582686
 MonoBehaviour:
@@ -23768,7 +23768,7 @@ GameObject:
   - component: {fileID: 1422567762293850360}
   - component: {fileID: 1422567762293850359}
   - component: {fileID: 1422567762293850358}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32914,6 +32914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CamRotation: {fileID: 0}
+  player: {fileID: 0}
   targetingSystem: {fileID: 3217326273807147883}
   characterController: {fileID: 3217326273807147899}
   crosshairUI: {fileID: 1742582684}

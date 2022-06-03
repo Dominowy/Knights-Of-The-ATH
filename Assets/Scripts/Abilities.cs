@@ -10,6 +10,7 @@ public class Abilities : MonoBehaviour
     Animator animator;
     public GameObject target;
     public Transform player;
+    public CharacterMovement playerMovement;
 
     // Sabre colider
     public GameObject sabreColider;
@@ -18,6 +19,10 @@ public class Abilities : MonoBehaviour
     // Timer for animation to finish
     public float animationTimer = 2f;
 
+    private void PPMToggle()
+    {
+        playerMovement.PPMLock = !playerMovement.PPMLock;
+    }
 
     private void Awake()
     {
@@ -25,14 +30,23 @@ public class Abilities : MonoBehaviour
 
         skillControls.InputControls.MouseButtonActionsAttack.performed += ctx =>
         {
+            if (playerMovement.PPMLock == false)
+            {
+                Invoke(nameof(PPMToggle), 0.1f);
+            }
             animator.SetTrigger("isAttacking");
             animator.SetBool("LockedWhileattacking", true);
             animationTimer = 1;
 
             animator.SetTrigger("Slash");
             sabreColider.SetActive(true);
+        };
 
-
+        skillControls.InputControls.MouseButtonActionsAttack.canceled += ctx =>
+        {
+           
+           Invoke(nameof(PPMToggle), 2.0f);
+            
         };
     }
 
@@ -46,9 +60,6 @@ public class Abilities : MonoBehaviour
     {
         skillControls.Disable();
     }
-
-
-
     public bool isMoving = false;
 
     [Header("Force Choke")]
@@ -78,8 +89,6 @@ public class Abilities : MonoBehaviour
     bool isSkill3Pressed = false;
     public float channeling = 0;
     public float cdTime = 0;
-
-    
 
     void Start()
     {
