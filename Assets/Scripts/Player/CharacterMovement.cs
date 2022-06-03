@@ -5,9 +5,6 @@ using UnityEngine.InputSystem;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [Header("Camera")]
-    public GameObject CamRotation;
-
     [Header("Player")]
     public GameObject player;
 
@@ -19,9 +16,6 @@ public class CharacterMovement : MonoBehaviour
     PlayerInput input;
     Vector2 currentMovement;
     bool movementPressed;
-
-
-
 
     // Na PPM lockujemy rotowanie kamery
     public bool PPMLock;
