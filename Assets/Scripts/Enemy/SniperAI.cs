@@ -194,8 +194,13 @@ namespace Assets.Scripts.Enemy
         {
             Destroy(gameObject);
         }
+
+
+        //fix
+        public Collider thisEnemyColider;
         private void DestroyEnemyAnimation()
         {
+            thisEnemyColider.enabled = false;
             botanimator.SetTrigger("Dying");
             isDead = true;
 
