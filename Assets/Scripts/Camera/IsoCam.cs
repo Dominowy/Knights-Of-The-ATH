@@ -37,10 +37,13 @@ public class IsoCam : MonoBehaviour
 		if (currentScroll > 0)
         {
 			cam1.orthographicSize += 0.1f;
+			cam1.nearClipPlane -= 0.1f;
 		}
 		if (currentScroll  < 0)
 		{
 			cam1.orthographicSize -= 0.1f;
+			cam1.nearClipPlane += 0.1f;
+
 		}
 	}
 
