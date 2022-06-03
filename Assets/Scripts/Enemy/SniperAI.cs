@@ -6,7 +6,7 @@ using Enemy;
 
 namespace Assets.Scripts.Enemy
 {
-    internal class SniperAI : MonoBehaviour, IEnemyAI
+    public class SniperAI : MonoBehaviour, IEnemyAI
     {
         //Animator
         private EnemyAnimator animator;

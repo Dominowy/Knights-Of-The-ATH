@@ -6,7 +6,7 @@ using Enemy;
 
 namespace Assets.Scripts.Enemy
 {
-    internal class TrooperAI : MonoBehaviour, IEnemyAI
+    public class TrooperAI : MonoBehaviour, IEnemyAI
     {
         //Animator
         private EnemyAnimator animator;
