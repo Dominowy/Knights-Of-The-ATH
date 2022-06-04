@@ -18,7 +18,9 @@ public class Abilities : MonoBehaviour
     // Sabre colider
     public GameObject sabreColider;
     public GameObject sabreSkillColider;
+    public GameObject blockColider;
     public float sabreColdown = 0.5f;
+
 
     // Timer for animation to finish
     public float animationTimer = 2f;
@@ -63,6 +65,23 @@ public class Abilities : MonoBehaviour
             Invoke(nameof(SabreColiderFix), 0.1f);
             Invoke(nameof(PPMToggle), 2.0f);
         };
+
+
+        // event na naciskanie PPM
+        skillControls.InputControls.MouseButtonActionsTarget.performed += ctx =>
+        {
+            animator.SetBool("Blocking", true);
+            blockColider.SetActive(true);
+
+        };
+        skillControls.InputControls.MouseButtonActionsTarget.canceled += ctx =>
+        {
+            animator.SetBool("Blocking", false);
+            blockColider.SetActive(false);
+        };
+
+
+
 
         // Choke
         skillControls.Skills.Skill1.performed += ctx =>

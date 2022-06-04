@@ -7349,11 +7349,13 @@ MonoBehaviour:
   croshair2TG: {fileID: 0}
   sabreColider: {fileID: 1277851297721949093}
   sabreSkillColider: {fileID: 1277851297547710425}
+  blockColider: {fileID: 1199779979847575791}
   sabreColdown: 0.5
   animationTimer: 2
   isMoving: 0
   chokeCDImg: {fileID: 5692349260509025636}
   cooldown1: 3
+  isCooldown: 0
   isActive: 0
   chokeChanneling: 0
   ability1Canvas: {fileID: 0}
@@ -13069,7 +13071,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     type: 1
     collisionMode: 0
