@@ -12,6 +12,9 @@ public class Abilities : MonoBehaviour
     public Transform player;
     public CharacterMovement playerMovement;
 
+    public GameObject croshairPL;
+    public GameObject croshair2TG;
+
     // Sabre colider
     public GameObject sabreColider;
     public GameObject sabreSkillColider;
@@ -21,18 +24,22 @@ public class Abilities : MonoBehaviour
 
     private void PPMToggle()
     {
+        Debug.Log("Invoked");
         playerMovement.PPMLock = !playerMovement.PPMLock;
     }
 
     private void Awake()
     {
+
         skillControls = new PlayerInput();
 
+
+        // Saber
         skillControls.InputControls.MouseButtonActionsAttack.performed += ctx =>
         {
             if (playerMovement.PPMLock == false)
             {
-                Invoke(nameof(PPMToggle), 0.1f);
+                playerMovement.PPMLock = true;
             }
             animator.SetTrigger("isAttacking");
             animator.SetBool("LockedWhileattacking", true);
@@ -46,6 +53,51 @@ public class Abilities : MonoBehaviour
         {
            Invoke(nameof(PPMToggle), 2.0f);
         };
+
+        // Choke
+
+        skillControls.Skills.Skill1.performed += ctx =>
+        {
+            if (playerMovement.PPMLock == false)
+            {
+                playerMovement.PPMLock = true;
+            }
+        };
+
+        skillControls.Skills.Skill1.canceled += ctx =>
+        {
+            Invoke(nameof(PPMToggle), 2.0f);
+        };
+
+        // Lightjning
+
+        skillControls.Skills.Skill2.performed += ctx =>
+        {
+            if (playerMovement.PPMLock == false)
+            {
+                playerMovement.PPMLock = true;
+            }
+        };
+
+        skillControls.Skills.Skill2.canceled += ctx =>
+        {
+            Invoke(nameof(PPMToggle), 2.0f);
+        };
+
+        // Sabre skill
+        skillControls.Skills.Skill3.performed += ctx =>
+        {
+            if (playerMovement.PPMLock == false)
+            {
+                playerMovement.PPMLock = true;
+            }
+        };
+
+        skillControls.Skills.Skill3.canceled += ctx =>
+        {
+            Invoke(nameof(PPMToggle), 2.0f);
+        };
+
     }
 
     private void OnEnable()
@@ -132,18 +184,22 @@ public class Abilities : MonoBehaviour
         }
     }
 
+     
+
+
     void Ability1()
     {
         target = player.GetComponent<TargetingSystem>().currentEnemyCopy;
 
         if (isCooldown == false && target != null)
         {
+            Invoke(nameof(LockOnSkill), 0.3f);
             chokeChanneling = 3f;
             isActive = true;
             animationTimer = 3;
             animator.SetTrigger("isAttacking");
             animator.SetTrigger("Choke");
-            LockOnSkill();
+
 
             chokeCDImg.fillAmount = 1;
         }
@@ -166,8 +222,7 @@ public class Abilities : MonoBehaviour
 
        if (isCooldown2 == false)
        {
-       
-           LockOnSkill();
+           Invoke(nameof(LockOnSkill), 0.3f);
            lightningChanneling = 3f;
            animationTimer = 3;
        
@@ -220,7 +275,7 @@ public class Abilities : MonoBehaviour
 
         if (channeling == 3.5)
         {
-            LockOnSkill();
+            Invoke(nameof(LockOnSkill), 0.3f);
             animator.SetTrigger("isAttacking");
             animator.SetTrigger("SpinAttack");
             sabreSkillColider.SetActive(true);

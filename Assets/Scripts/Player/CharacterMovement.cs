@@ -31,7 +31,7 @@ public class CharacterMovement : MonoBehaviour
      float gravity = - 9.8f;
      public float vSpeed = 0f;
 
-    Vector2 mousePos = Vector2.zero;
+    public Vector2 mousePos = Vector2.zero;
 
 
     // public GameObject;
