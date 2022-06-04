@@ -18,21 +18,24 @@ public class Abilities : MonoBehaviour
     // Sabre colider
     public GameObject sabreColider;
     public GameObject sabreSkillColider;
+    public float sabreColdown = 0.5f;
 
     // Timer for animation to finish
     public float animationTimer = 2f;
 
     private void PPMToggle()
     {
-        Debug.Log("Invoked");
         playerMovement.PPMLock = !playerMovement.PPMLock;
+    }
+
+    private void SabreColiderFix()
+    {
+         sabreColider.SetActive(false);
     }
 
     private void Awake()
     {
-
         skillControls = new PlayerInput();
-
 
         // Saber
         skillControls.InputControls.MouseButtonActionsAttack.performed += ctx =>
@@ -46,16 +49,22 @@ public class Abilities : MonoBehaviour
             animationTimer = 1;
 
             animator.SetTrigger("Slash");
-            sabreColider.SetActive(true);
+
+            if (sabreColdown < 0.5) sabreColider.SetActive(true);
         };
 
         skillControls.InputControls.MouseButtonActionsAttack.canceled += ctx =>
         {
-           Invoke(nameof(PPMToggle), 2.0f);
+            if (sabreColdown < 0.4)
+            {
+             sabreColdown = 1f;
+
+            }
+            Invoke(nameof(SabreColiderFix), 0.1f);
+            Invoke(nameof(PPMToggle), 2.0f);
         };
 
         // Choke
-
         skillControls.Skills.Skill1.performed += ctx =>
         {
             if (playerMovement.PPMLock == false)
@@ -70,7 +79,6 @@ public class Abilities : MonoBehaviour
         };
 
         // Lightjning
-
         skillControls.Skills.Skill2.performed += ctx =>
         {
             if (playerMovement.PPMLock == false)
@@ -155,13 +163,14 @@ public class Abilities : MonoBehaviour
         lightningChanneling -= Time.deltaTime;
         channeling -= Time.deltaTime;
         cdTime -= Time.deltaTime;
+        sabreColdown -= Time.deltaTime;
 
         animationTimer -= Time.deltaTime;
 
         if (animationTimer < 0)
         {
             animator.SetBool("LockedWhileattacking", true);
-            sabreColider.SetActive(false);
+          
 
         }
 

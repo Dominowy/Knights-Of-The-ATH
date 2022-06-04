@@ -59,6 +59,7 @@ public class CharacterMovement : MonoBehaviour
         input.InputControls.SwitchTarget.performed += ctx =>
         {
             LockMode = !LockMode;
+            targetingSystem.TargetEnemies();
         };
 
     }
@@ -131,10 +132,8 @@ public class CharacterMovement : MonoBehaviour
 
     public void ProcessRotation(Vector2 input)
     {
-        if (LockMode)
+        if (LockMode && targetingSystem.currentEnemy != null)
         {
-
-        targetingSystem.TargetEnemies();
         player.transform.LookAt(targetingSystem.currentEnemy.transform);
         }
 

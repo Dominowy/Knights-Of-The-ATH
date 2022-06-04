@@ -9,6 +9,8 @@ public class SelectedEnemy : MonoBehaviour
     public GameObject targetUI;
     public GameObject CrossHairUI;
 
+    public bool isDead;
+
 
     public bool canMove = true;
     public bool canRetarget = true;
@@ -45,7 +47,7 @@ public class SelectedEnemy : MonoBehaviour
             player.GetComponent<CharacterMovement>().m_canMove = true;
             
             // Kill Bot
-            bot.GetComponent<IEnemyAi>().TakeDamage(100);
+            bot.GetComponent<IEnemyAi>().TakeDamage(500);
         }
        
     }
@@ -63,6 +65,11 @@ public class SelectedEnemy : MonoBehaviour
         //Targeting SystemUI
         if (target != null)
         {
+            if (target.GetComponent<CapsuleCollider>().enabled == false)
+            {
+                isDead = true;
+            }
+
             CrossHairUI.SetActive(false);
             targetUI.SetActive(true);
             targetUI.transform.position = target.transform.position + offset;
