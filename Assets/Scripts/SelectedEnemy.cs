@@ -1,3 +1,4 @@
+using Assets.Scripts.Enemy;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class SelectedEnemy : MonoBehaviour
     public GameObject CrossHairUI;
 
     public bool isDead;
-
+    public bool flagTrigger;
 
     public bool canMove = true;
     public bool canRetarget = true;
@@ -24,7 +25,6 @@ public class SelectedEnemy : MonoBehaviour
     void Awake()
     {
         player = GameObject.Find("Player");
-
     }
 
    void ForceChoke(GameObject bot)
@@ -33,22 +33,26 @@ public class SelectedEnemy : MonoBehaviour
         SkillDuration -= Time.deltaTime;
         t += 0.5f * Time.deltaTime;
 
-        // !!!
-        // Here effects of force choke - transform, animation, -HP
+        if (!flagTrigger)
+        {
+            target.GetComponent<Animator>().SetTrigger("Choked");
+            flagTrigger = true;
+        }
+
         if (SkillDuration > 0.6)
         {
             bot.transform.position = new Vector3(bot.transform.position.x, Mathf.Lerp(1, forceChokeLift, t), bot.transform.position.z);
-
+            player.GetComponent<CharacterMovement>().m_canMove = false;
         }
         else
         {
-            //  !!! To siê ca³kty czas wykonuje
-
             t = 0;
             player.GetComponent<CharacterMovement>().m_canMove = true;
-            
-            // Kill Bot
-            bot.GetComponent<IEnemyAi>().TakeDamage(500);
+
+            if (!isDead)
+            {
+             bot.GetComponent<IEnemyAI>().TakeDamage(500);
+            }
         }
        
     }
@@ -86,8 +90,6 @@ public class SelectedEnemy : MonoBehaviour
         if (activeChokeSkill && (target != null))
         {
             ForceChoke(target);
-            target.GetComponent<Animator>().SetTrigger("Choked");
-            player.GetComponent<CharacterMovement>().m_canMove = false;
             canRetarget = false;
         }
         else

@@ -123,7 +123,7 @@ public class Abilities : MonoBehaviour
     [Header("Force Choke")]
     public Image chokeCDImg;
     public float cooldown1 = 3;
-    bool isCooldown = false;
+    public bool isCooldown = false;
     bool isSkill1Pressed = false;
     public bool isActive = false;
     public float chokeChanneling = 0;
@@ -211,9 +211,12 @@ public class Abilities : MonoBehaviour
 
 
             chokeCDImg.fillAmount = 1;
+
+            isCooldown = true;
+
         }
 
-        if(isCooldown)
+        if (isCooldown)
         {
             chokeCDImg.fillAmount -= 1 / cooldown1 * Time.deltaTime;
 
@@ -222,6 +225,9 @@ public class Abilities : MonoBehaviour
                 chokeCDImg.fillAmount = 0;
                 isCooldown = false;
                 isActive = false;
+
+                player.GetComponent<CharacterMovement>().m_canMove = true;
+                player.GetComponent<CharacterMovement>().m_canRotate = true;
             }
         }
     }
@@ -273,7 +279,6 @@ public class Abilities : MonoBehaviour
 
     void Ability3()
     {
-
         if (isCooldown3 == false)
         {
             channeling = 3.5f;
