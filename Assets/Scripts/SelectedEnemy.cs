@@ -42,6 +42,7 @@ public class SelectedEnemy : MonoBehaviour
         }
         else
         {
+            //  !!! To siê ca³kty czas wykonuje
 
             t = 0;
             player.GetComponent<CharacterMovement>().m_canMove = true;
@@ -85,6 +86,7 @@ public class SelectedEnemy : MonoBehaviour
         if (activeChokeSkill && (target != null))
         {
             ForceChoke(target);
+            target.GetComponent<Animator>().SetTrigger("Choked");
             player.GetComponent<CharacterMovement>().m_canMove = false;
             canRetarget = false;
         }

@@ -14280,6 +14280,11 @@ Transform:
   m_Father: {fileID: 1138380019}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1423240635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1277851298320188249, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+  m_PrefabInstance: {fileID: 1277851297898965670}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1424184170
 GameObject:
   m_ObjectHideFlags: 0
@@ -14813,6 +14818,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetUI: {fileID: 656518138}
   CrossHairUI: {fileID: 678242851}
+  isDead: 0
   canMove: 1
   canRetarget: 0
   forceChokeLift: 2
@@ -17615,6 +17621,14 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 1030533742}
+    - target: {fileID: 4403935284992166348, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: croshairPL
+      value: 
+      objectReference: {fileID: 678242851}
+    - target: {fileID: 4403935284992166348, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: croshair2TG
+      value: 
+      objectReference: {fileID: 1423240635}
     - target: {fileID: 5692349261014602838, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -17868,6 +17882,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetUI: {fileID: 656518138}
   CrossHairUI: {fileID: 678242851}
+  isDead: 0
   canMove: 1
   canRetarget: 0
   forceChokeLift: 2
