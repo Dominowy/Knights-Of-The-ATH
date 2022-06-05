@@ -3066,8 +3066,33 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.008429298
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0022586242
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.96588904
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.25880924
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 179
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+--- !u!1 &557691705 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4403935284992166339, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+  m_PrefabInstance: {fileID: 516147190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &602218977
 GameObject:
   m_ObjectHideFlags: 0
@@ -19807,10 +19832,20 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1526430028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5692349259657604618, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+  m_PrefabInstance: {fileID: 516147190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1561648837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d312e6e3f648fc64796fdcb5270e2d97, type: 3}
   m_PrefabInstance: {fileID: 69681005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1563048415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7269877843728059712, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+  m_PrefabInstance: {fileID: 516147190}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1594258782
 PrefabInstance:
@@ -34101,11 +34136,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1bee4c1c6923f40a884980403de1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  PlayerCam: {fileID: 0}
+  Player: {fileID: 557691705}
+  PlayerCam: {fileID: 1563048415}
   cutscene: {fileID: 893213903}
   cutsceneCam: {fileID: 1728218072}
-  UI: {fileID: 0}
+  UI: {fileID: 1526430028}
   CamBars: {fileID: 1411171880}
 --- !u!1 &8738823184420213580
 GameObject:

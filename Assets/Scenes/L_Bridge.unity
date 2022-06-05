@@ -1069,6 +1069,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5692349259657604629, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5692349261014602838, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1076,6 +1080,26 @@ PrefabInstance:
     - target: {fileID: 5692349261014602838, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6830127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.18301274
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6830127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.18301274
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269877843728059743, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
