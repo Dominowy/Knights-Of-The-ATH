@@ -15671,50 +15671,17 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0025026798, y: -0.23626313, z: 0.020493835}
     m_Extent: {x: 0.72719985, y: 0.86930585, z: 0.30049658}
   m_DirtyAABB: 0
---- !u!1 &1695828838
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1695828840}
-  - component: {fileID: 1695828839}
-  m_Layer: 0
-  m_Name: PauseSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1695828839
+--- !u!114 &1695828839 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7251227490412793864, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+  m_PrefabInstance: {fileID: 1277851297898965670}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1695828838}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95d8e8acf618a8542a7f8eba7fcbfe9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 1874903418927056275}
---- !u!4 &1695828840
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1695828838}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 965.1841, y: 551.61035, z: 25.89889}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1701700740
 Mesh:
   m_ObjectHideFlags: 0
@@ -17758,6 +17725,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7251227490412793864, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
+      propertyPath: menu
+      value: 
+      objectReference: {fileID: 1874903418927056275}
     - target: {fileID: 8206242589807075953, guid: e7b3dc2bf2755aa44b1429f3a6bdc2d8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -24765,7 +24736,7 @@ RectTransform:
   - {fileID: 1874903418605262262}
   - {fileID: 1874903419219519446}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
