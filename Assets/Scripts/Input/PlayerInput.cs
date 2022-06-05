@@ -98,6 +98,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HideHelp"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a264a06-3f83-4153-b93a-a2b979fb8dbb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -230,6 +239,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ded25df3-fcc0-4761-84fe-8793102df570"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HideHelp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -920,6 +940,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_InputControls_SwitchCamera = m_InputControls.FindAction("SwitchCamera", throwIfNotFound: true);
         m_InputControls_SwitchTarget = m_InputControls.FindAction("SwitchTarget", throwIfNotFound: true);
         m_InputControls_PauseGame = m_InputControls.FindAction("PauseGame", throwIfNotFound: true);
+        m_InputControls_HideHelp = m_InputControls.FindAction("HideHelp", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1010,6 +1031,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_InputControls_SwitchCamera;
     private readonly InputAction m_InputControls_SwitchTarget;
     private readonly InputAction m_InputControls_PauseGame;
+    private readonly InputAction m_InputControls_HideHelp;
     public struct InputControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -1022,6 +1044,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @SwitchCamera => m_Wrapper.m_InputControls_SwitchCamera;
         public InputAction @SwitchTarget => m_Wrapper.m_InputControls_SwitchTarget;
         public InputAction @PauseGame => m_Wrapper.m_InputControls_PauseGame;
+        public InputAction @HideHelp => m_Wrapper.m_InputControls_HideHelp;
         public InputActionMap Get() { return m_Wrapper.m_InputControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1055,6 +1078,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @PauseGame.started -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnPauseGame;
                 @PauseGame.performed -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnPauseGame;
                 @PauseGame.canceled -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnPauseGame;
+                @HideHelp.started -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnHideHelp;
+                @HideHelp.performed -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnHideHelp;
+                @HideHelp.canceled -= m_Wrapper.m_InputControlsActionsCallbackInterface.OnHideHelp;
             }
             m_Wrapper.m_InputControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -1083,6 +1109,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @PauseGame.started += instance.OnPauseGame;
                 @PauseGame.performed += instance.OnPauseGame;
                 @PauseGame.canceled += instance.OnPauseGame;
+                @HideHelp.started += instance.OnHideHelp;
+                @HideHelp.performed += instance.OnHideHelp;
+                @HideHelp.canceled += instance.OnHideHelp;
             }
         }
     }
@@ -1308,6 +1337,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnSwitchCamera(InputAction.CallbackContext context);
         void OnSwitchTarget(InputAction.CallbackContext context);
         void OnPauseGame(InputAction.CallbackContext context);
+        void OnHideHelp(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

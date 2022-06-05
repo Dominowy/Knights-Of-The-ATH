@@ -6,13 +6,22 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static bool paused = false;
+    public static bool helpdisabled = true;
     public GameObject menu;
+    public GameObject helpMenu;
 
     PlayerInput action;
 
     private void Awake()
     {
         action = new PlayerInput();
+
+
+        action.InputControls.HideHelp.performed += ctx =>
+        {
+            DetermineHelp();
+        };
+
     }
     public void PauseGame()
     {
@@ -40,6 +49,26 @@ public class PauseMenu : MonoBehaviour
         action.InputControls.PauseGame.performed += ctx => DeterminePause();
     }
 
+    private void DetermineHelp()
+    {
+        if (helpdisabled)
+        {
+            Debug.Log("off");
+            helpMenu.SetActive(false);
+            helpdisabled = false;
+        }
+        else
+        {
+            Debug.Log("on");
+            helpMenu.SetActive(true);
+            helpdisabled = true;
+        }
+            
+            
+    }
+
+
+
     private void DeterminePause()
     {
         if (paused) ResumeGame();
@@ -55,12 +84,13 @@ public class PauseMenu : MonoBehaviour
     private void OnEnable()
     {
         action.InputControls.PauseGame.Enable();
+        action.InputControls.HideHelp.Enable();
     }
 
     private void OnDisable()
     {
         action.InputControls.PauseGame.Disable();
+        action.InputControls.HideHelp.Disable();
     }
-
 
 }
