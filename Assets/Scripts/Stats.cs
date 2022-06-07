@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Stats : MonoBehaviour
 {
@@ -39,6 +40,13 @@ public class Stats : MonoBehaviour
 
     private void Update()
     {
+        if (curenthealth < 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+
+
         if (Time.time >= nextTime)
         {
             if (curenthealth <= 200)
