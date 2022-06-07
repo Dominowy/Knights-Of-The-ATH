@@ -50,9 +50,6 @@ public class TargetingSystem : MonoBehaviour
                 currentEnemy = null;
             }
         }
-        
-
-
     }
 
 
