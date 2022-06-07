@@ -7561,7 +7561,7 @@ MonoBehaviour:
   lightningChanneling: 0
   S2_VFX: {fileID: 8206242589807075953}
   sabreCDImg: {fileID: 5692349261046864408}
-  cooldown3: 7
+  cooldown3: 15
   channeling: 0
   cdTime: 0
   skill1Lock: {fileID: 4876910551206922879}

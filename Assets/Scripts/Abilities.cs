@@ -128,6 +128,12 @@ public class Abilities : MonoBehaviour
 
     }
 
+
+    void PostSkillBlockDisable()
+    {
+        blockColider.SetActive(false);
+    }
+
     private void OnEnable()
     {
         skillControls.Enable();
@@ -267,6 +273,8 @@ public class Abilities : MonoBehaviour
                 isCooldown = true;
 
                 player.gameObject.GetComponent<Stats>().takeMana(100);
+                blockColider.SetActive(true);
+                Invoke(nameof(PostSkillBlockDisable), 4.0f);
             }
         }
 
@@ -305,6 +313,8 @@ public class Abilities : MonoBehaviour
                 isCooldown2 = true;
 
                 player.gameObject.GetComponent<Stats>().takeMana(100);
+                blockColider.SetActive(true);
+                Invoke(nameof(PostSkillBlockDisable), 3.0f);
             }
         }
 
@@ -344,6 +354,8 @@ public class Abilities : MonoBehaviour
             cdTime = 7;
             isCooldown3 = true;
             sabreCDImg.fillAmount = 1;
+            blockColider.SetActive(true);
+            Invoke(nameof(PostSkillBlockDisable), 4.0f);
         }
 
         if (channeling == 3.5)
