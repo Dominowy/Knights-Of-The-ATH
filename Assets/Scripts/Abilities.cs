@@ -131,13 +131,14 @@ public class Abilities : MonoBehaviour
     private void OnEnable()
     {
         skillControls.Enable();
-        
     }
 
     private void OnDisable()
     {
         skillControls.Disable();
     }
+
+
     public bool isMoving = false;
 
     [Header("Force Choke")]
@@ -173,6 +174,7 @@ public class Abilities : MonoBehaviour
     public Image skill1Lock;
     public Image skill2Lock;
     int curMana;
+    bool isLocked;
 
     void Start()
     {
@@ -186,13 +188,16 @@ public class Abilities : MonoBehaviour
     void Update()
     {
         curMana = player.gameObject.GetComponent<Stats>().curentMana;
+        isLocked = player.gameObject.GetComponent<CharacterMovement>().LockMode;
+
+
         chokeChanneling -= Time.deltaTime;
         lightningChanneling -= Time.deltaTime;
         channeling -= Time.deltaTime;
         cdTime -= Time.deltaTime;
         sabreColdown -= Time.deltaTime;
+        animationTimer -= Time.deltaTime;
 
-       animationTimer -= Time.deltaTime;
         if (animationTimer < 0)
         {
             animator.SetBool("LockedWhileattacking", true);
@@ -204,7 +209,10 @@ public class Abilities : MonoBehaviour
 
         if (curMana > 100)
         {
-            skill1Lock.fillAmount = 0;
+            if (isLocked)
+            {
+              skill1Lock.fillAmount = 0;
+            }
             skill2Lock.fillAmount = 0;
 
         }
@@ -212,6 +220,11 @@ public class Abilities : MonoBehaviour
         {
             skill1Lock.fillAmount = 1;
             skill2Lock.fillAmount = 1;
+        }
+
+        if (!isLocked)
+        {
+            skill1Lock.fillAmount = 1;
         }
 
 
