@@ -9,7 +9,8 @@ public class Abilities : MonoBehaviour
     PlayerInput skillControls;
     Animator animator;
     public GameObject target;
-    public Transform player;
+    public GameObject player;
+    public Transform playerTrans;
     public CharacterMovement playerMovement;
 
     public GameObject croshairPL;
@@ -167,6 +168,12 @@ public class Abilities : MonoBehaviour
     public float channeling = 0;
     public float cdTime = 0;
 
+
+    // mana lock skills UI
+    public Image skill1Lock;
+    public Image skill2Lock;
+    int curMana;
+
     void Start()
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
@@ -178,25 +185,36 @@ public class Abilities : MonoBehaviour
 
     void Update()
     {
+        curMana = player.gameObject.GetComponent<Stats>().curentMana;
         chokeChanneling -= Time.deltaTime;
         lightningChanneling -= Time.deltaTime;
         channeling -= Time.deltaTime;
         cdTime -= Time.deltaTime;
         sabreColdown -= Time.deltaTime;
 
-        animationTimer -= Time.deltaTime;
-
+       animationTimer -= Time.deltaTime;
         if (animationTimer < 0)
         {
             animator.SetBool("LockedWhileattacking", true);
-          
-
         }
-
 
         isSkill1Pressed = skillControls.Skills.Skill1.IsPressed();
         isSkill2Pressed = skillControls.Skills.Skill2.IsPressed();
         isSkill3Pressed = skillControls.Skills.Skill3.IsPressed();
+
+        if (curMana > 100)
+        {
+            skill1Lock.fillAmount = 0;
+            skill2Lock.fillAmount = 0;
+
+        }
+        else
+        {
+            skill1Lock.fillAmount = 1;
+            skill2Lock.fillAmount = 1;
+        }
+
+
 
         if (isSkill1Pressed || (chokeChanneling > 0))
         {
@@ -206,6 +224,7 @@ public class Abilities : MonoBehaviour
         {
             Ability2();
         }
+
         if (isSkill3Pressed || (cdTime > 0))
         {
             Ability3();
@@ -217,22 +236,25 @@ public class Abilities : MonoBehaviour
 
     void Ability1()
     {
-        target = player.GetComponent<TargetingSystem>().currentEnemyCopy;
+        target = playerTrans.GetComponent<TargetingSystem>().currentEnemyCopy;
 
         if (isCooldown == false && target != null)
         {
-            Invoke(nameof(LockOnSkill), 0.3f);
-            chokeChanneling = 3f;
-            isActive = true;
-            animationTimer = 3;
-            animator.SetTrigger("isAttacking");
-            animator.SetTrigger("Choke");
+            if (curMana > 100)
+            {
+                Invoke(nameof(LockOnSkill), 0.3f);
+                chokeChanneling = 3f;
+                isActive = true;
+                animationTimer = 3;
+                animator.SetTrigger("isAttacking");
+                animator.SetTrigger("Choke");
 
 
-            chokeCDImg.fillAmount = 1;
+                chokeCDImg.fillAmount = 1;
+                isCooldown = true;
 
-            isCooldown = true;
-
+                player.gameObject.GetComponent<Stats>().takeMana(100);
+            }
         }
 
         if (isCooldown)
@@ -245,8 +267,8 @@ public class Abilities : MonoBehaviour
                 isCooldown = false;
                 isActive = false;
 
-                player.GetComponent<CharacterMovement>().m_canMove = true;
-                player.GetComponent<CharacterMovement>().m_canRotate = true;
+                playerTrans.GetComponent<CharacterMovement>().m_canMove = true;
+                playerTrans.GetComponent<CharacterMovement>().m_canRotate = true;
             }
         }
     }
@@ -256,19 +278,24 @@ public class Abilities : MonoBehaviour
 
        if (isCooldown2 == false)
        {
-           Invoke(nameof(LockOnSkill), 0.3f);
-           lightningChanneling = 3f;
-           animationTimer = 3;
-       
-           animator.SetTrigger("isAttacking");
-           animator.SetTrigger("Lightning");
-       
-           lightningCDImg.fillAmount = 1;
-       
-           isCooldown2 = true;
-       }
+            if (curMana > 100)
+            {
+                Invoke(nameof(LockOnSkill), 0.3f);
+                lightningChanneling = 3f;
+                animationTimer = 3;
 
-       if (lightningChanneling > 0.1f && lightningChanneling < 2.0f)
+                animator.SetTrigger("isAttacking");
+                animator.SetTrigger("Lightning");
+
+                lightningCDImg.fillAmount = 1;
+
+                isCooldown2 = true;
+
+                player.gameObject.GetComponent<Stats>().takeMana(100);
+            }
+        }
+
+        if (lightningChanneling > 0.1f && lightningChanneling < 2.0f)
        {
             S2_VFX.SetActive(true);
            
@@ -277,8 +304,8 @@ public class Abilities : MonoBehaviour
        else if (lightningChanneling < 0.1f)
        {
            S2_VFX.SetActive(false);
-           player.GetComponent<CharacterMovement>().m_canMove = true;
-           player.GetComponent<CharacterMovement>().m_canRotate = true;
+           playerTrans.GetComponent<CharacterMovement>().m_canMove = true;
+           playerTrans.GetComponent<CharacterMovement>().m_canRotate = true;
 
        }
 
@@ -316,8 +343,8 @@ public class Abilities : MonoBehaviour
 
         else if (channeling < 0)
         {
-           player.GetComponent<CharacterMovement>().m_canMove = true;
-           player.GetComponent<CharacterMovement>().m_canRotate = true;
+           playerTrans.GetComponent<CharacterMovement>().m_canMove = true;
+           playerTrans.GetComponent<CharacterMovement>().m_canRotate = true;
            sabreSkillColider.SetActive(false);
 
         }
@@ -339,8 +366,8 @@ public class Abilities : MonoBehaviour
     void LockOnSkill()
     {
         Debug.Log("lockonSkill");
-        player.GetComponent<CharacterMovement>().PPMLock = true;
-        player.GetComponent<CharacterMovement>().m_canMove = false;
-        player.GetComponent<CharacterMovement>().m_canRotate = false;
+        playerTrans.GetComponent<CharacterMovement>().PPMLock = true;
+        playerTrans.GetComponent<CharacterMovement>().m_canMove = false;
+        playerTrans.GetComponent<CharacterMovement>().m_canRotate = false;
     }
 }

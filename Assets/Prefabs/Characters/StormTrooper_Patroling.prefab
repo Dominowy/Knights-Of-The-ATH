@@ -4094,7 +4094,7 @@ GameObject:
   - component: {fileID: 6123035684398319902}
   - component: {fileID: 6123035684398319876}
   m_Layer: 7
-  m_Name: 'StormTrooper_Patroling '
+  m_Name: StormTrooper_Patroling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

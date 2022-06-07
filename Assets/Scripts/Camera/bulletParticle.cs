@@ -6,30 +6,15 @@ public class bulletParticle : MonoBehaviour
 {
     public ParticleSystem particleSystem;
 
+    public int hpDamage;
+
 
     List<ParticleCollisionEvent> colEvents = new List<ParticleCollisionEvent>();
 
-
-
-    // Old code that fires every time tab is pressed 
-    /*
-         private void Update()
-         {
-             if (Input.GetKeyDown(KeyCode.Tab))
-             {
-                 particleSystem.Play();
-             }       
-         }
-     */
-
-
-    // when attached to EnemyAI and instantiated this should work.. I think
     private void Start()
     {
             particleSystem.Play();
     }
-
-
 
 
     private void OnParticleCollision(GameObject other)
@@ -39,6 +24,7 @@ public class bulletParticle : MonoBehaviour
         if (other.name.Equals("Player"))
         {
             Debug.Log("Player HIT");
+            other.gameObject.GetComponent<Stats>().takeDamage(hpDamage);
             Destroy(this.gameObject);
         }
            

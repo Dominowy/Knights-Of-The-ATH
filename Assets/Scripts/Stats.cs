@@ -1,39 +1,64 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stats : MonoBehaviour
 {
+    public int maxHealth;
+    public int curenthealth;
 
-    public float maxHealth;
-    public float health;
-    public float attackDmg;
-    public float attackSpeed;
-    public float attackTime;
+    public int maxMana;
+    public int curentMana;
 
-    // HeroCombat heroCombatScript;
+    public HPscript hpscript;
+    public ForceScript forcescript;
 
-    private GameObject player;
-    public float expValue;
-
-    // Start is called before the first frame update
-    void Start()
+    public void takeDamage(int damage)
     {
-        //  heroCombatScript = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroCombat>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        curenthealth -= damage;
+        hpscript.SetHealth(curenthealth);
+    }
+    public void takeMana(int manaDrain)
+    {
+        curentMana -= manaDrain;
+        forcescript.SetMana(curentMana);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        if(health <= 0)
-        {
-            Destroy(gameObject);
-            // heroCombatScript.targetedEnemy = null;
-            // heroCombatScript.performMeleeAttack = false;
+        curenthealth = maxHealth;
+        hpscript.SetMaxHealth(maxHealth);
 
-            //Give Exp
-            player.GetComponent<LevelUpStats>().SetExperience(expValue);
+        curentMana = maxMana;
+        forcescript.SetMaxMana(maxMana);
+    }
+
+    int interval = 1;
+    float nextTime = 0;
+
+    private void Update()
+    {
+        if (Time.time >= nextTime)
+        {
+            if (curenthealth <= 200)
+            {
+                Debug.Log("HP");
+                curenthealth++;
+            }
+            if (curentMana <= 200)
+            {
+                Debug.Log("mana");
+
+                curentMana += 5;
+            }
+
+        hpscript.SetHealth(curenthealth);
+        forcescript.SetMana(curentMana);
+
+        nextTime += interval;
+
         }
+
     }
 }
