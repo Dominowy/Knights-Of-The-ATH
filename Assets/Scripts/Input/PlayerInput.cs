@@ -926,6 +926,174 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Ship"",
+            ""id"": ""91f939a8-3060-453d-b9be-052ef5dd4bf9"",
+            ""actions"": [
+                {
+                    ""name"": ""ThrustUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""a65105ee-9591-4495-8dbb-f50cbb2a4db7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ThrustDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""9b322ebd-e925-4c5f-9e1d-48a3ce9c7435"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PitchUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""93d5793c-25d9-4406-95ec-0021c6c57955"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PitchDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""743d12e1-5a3b-44f3-8f4c-fa639c0f4468"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RollUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7c605a3-1969-42ac-aa27-b1284677553c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RollDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""58516b31-bc52-41ff-a5e5-6fbccbdeafc9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TurnLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""8483f047-5d82-420e-b1c0-2d1d743c3e17"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TurnRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""f688c682-e260-4611-9887-e280f5c7ac1d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0f7ce11c-842d-4693-8001-37310c57b605"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrustUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6b4c823-d2dc-40cb-9b61-f69df6ec24b2"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrustDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abcbe6bb-6d6c-40a4-9b5c-d98a8db8862f"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PitchUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0725ee03-345c-4d71-9303-dcea25d48e31"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PitchDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05daaa8e-5a0e-4ff7-ba51-373039b147e2"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RollUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""841f6fc5-130f-40a8-99c6-e8416587747e"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RollDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9993c67d-ec9e-4265-ba7e-80c4afb72899"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TurnLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef384948-6102-4f90-93a9-807c66144737"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TurnRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -964,6 +1132,16 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Skills_Skill2 = m_Skills.FindAction("Skill2", throwIfNotFound: true);
         m_Skills_Skill3 = m_Skills.FindAction("Skill3", throwIfNotFound: true);
         m_Skills_LPM = m_Skills.FindAction("LPM", throwIfNotFound: true);
+        // Ship
+        m_Ship = asset.FindActionMap("Ship", throwIfNotFound: true);
+        m_Ship_ThrustUp = m_Ship.FindAction("ThrustUp", throwIfNotFound: true);
+        m_Ship_ThrustDown = m_Ship.FindAction("ThrustDown", throwIfNotFound: true);
+        m_Ship_PitchUp = m_Ship.FindAction("PitchUp", throwIfNotFound: true);
+        m_Ship_PitchDown = m_Ship.FindAction("PitchDown", throwIfNotFound: true);
+        m_Ship_RollUp = m_Ship.FindAction("RollUp", throwIfNotFound: true);
+        m_Ship_RollDown = m_Ship.FindAction("RollDown", throwIfNotFound: true);
+        m_Ship_TurnLeft = m_Ship.FindAction("TurnLeft", throwIfNotFound: true);
+        m_Ship_TurnRight = m_Ship.FindAction("TurnRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1327,6 +1505,95 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         }
     }
     public SkillsActions @Skills => new SkillsActions(this);
+
+    // Ship
+    private readonly InputActionMap m_Ship;
+    private IShipActions m_ShipActionsCallbackInterface;
+    private readonly InputAction m_Ship_ThrustUp;
+    private readonly InputAction m_Ship_ThrustDown;
+    private readonly InputAction m_Ship_PitchUp;
+    private readonly InputAction m_Ship_PitchDown;
+    private readonly InputAction m_Ship_RollUp;
+    private readonly InputAction m_Ship_RollDown;
+    private readonly InputAction m_Ship_TurnLeft;
+    private readonly InputAction m_Ship_TurnRight;
+    public struct ShipActions
+    {
+        private @PlayerInput m_Wrapper;
+        public ShipActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ThrustUp => m_Wrapper.m_Ship_ThrustUp;
+        public InputAction @ThrustDown => m_Wrapper.m_Ship_ThrustDown;
+        public InputAction @PitchUp => m_Wrapper.m_Ship_PitchUp;
+        public InputAction @PitchDown => m_Wrapper.m_Ship_PitchDown;
+        public InputAction @RollUp => m_Wrapper.m_Ship_RollUp;
+        public InputAction @RollDown => m_Wrapper.m_Ship_RollDown;
+        public InputAction @TurnLeft => m_Wrapper.m_Ship_TurnLeft;
+        public InputAction @TurnRight => m_Wrapper.m_Ship_TurnRight;
+        public InputActionMap Get() { return m_Wrapper.m_Ship; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ShipActions set) { return set.Get(); }
+        public void SetCallbacks(IShipActions instance)
+        {
+            if (m_Wrapper.m_ShipActionsCallbackInterface != null)
+            {
+                @ThrustUp.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnThrustUp;
+                @ThrustUp.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnThrustUp;
+                @ThrustUp.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnThrustUp;
+                @ThrustDown.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnThrustDown;
+                @ThrustDown.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnThrustDown;
+                @ThrustDown.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnThrustDown;
+                @PitchUp.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnPitchUp;
+                @PitchUp.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnPitchUp;
+                @PitchUp.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnPitchUp;
+                @PitchDown.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnPitchDown;
+                @PitchDown.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnPitchDown;
+                @PitchDown.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnPitchDown;
+                @RollUp.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnRollUp;
+                @RollUp.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnRollUp;
+                @RollUp.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnRollUp;
+                @RollDown.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnRollDown;
+                @RollDown.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnRollDown;
+                @RollDown.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnRollDown;
+                @TurnLeft.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnTurnLeft;
+                @TurnLeft.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnTurnLeft;
+                @TurnLeft.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnTurnLeft;
+                @TurnRight.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnTurnRight;
+                @TurnRight.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnTurnRight;
+                @TurnRight.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnTurnRight;
+            }
+            m_Wrapper.m_ShipActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ThrustUp.started += instance.OnThrustUp;
+                @ThrustUp.performed += instance.OnThrustUp;
+                @ThrustUp.canceled += instance.OnThrustUp;
+                @ThrustDown.started += instance.OnThrustDown;
+                @ThrustDown.performed += instance.OnThrustDown;
+                @ThrustDown.canceled += instance.OnThrustDown;
+                @PitchUp.started += instance.OnPitchUp;
+                @PitchUp.performed += instance.OnPitchUp;
+                @PitchUp.canceled += instance.OnPitchUp;
+                @PitchDown.started += instance.OnPitchDown;
+                @PitchDown.performed += instance.OnPitchDown;
+                @PitchDown.canceled += instance.OnPitchDown;
+                @RollUp.started += instance.OnRollUp;
+                @RollUp.performed += instance.OnRollUp;
+                @RollUp.canceled += instance.OnRollUp;
+                @RollDown.started += instance.OnRollDown;
+                @RollDown.performed += instance.OnRollDown;
+                @RollDown.canceled += instance.OnRollDown;
+                @TurnLeft.started += instance.OnTurnLeft;
+                @TurnLeft.performed += instance.OnTurnLeft;
+                @TurnLeft.canceled += instance.OnTurnLeft;
+                @TurnRight.started += instance.OnTurnRight;
+                @TurnRight.performed += instance.OnTurnRight;
+                @TurnRight.canceled += instance.OnTurnRight;
+            }
+        }
+    }
+    public ShipActions @Ship => new ShipActions(this);
     public interface IInputControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -1364,5 +1631,16 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnSkill2(InputAction.CallbackContext context);
         void OnSkill3(InputAction.CallbackContext context);
         void OnLPM(InputAction.CallbackContext context);
+    }
+    public interface IShipActions
+    {
+        void OnThrustUp(InputAction.CallbackContext context);
+        void OnThrustDown(InputAction.CallbackContext context);
+        void OnPitchUp(InputAction.CallbackContext context);
+        void OnPitchDown(InputAction.CallbackContext context);
+        void OnRollUp(InputAction.CallbackContext context);
+        void OnRollDown(InputAction.CallbackContext context);
+        void OnTurnLeft(InputAction.CallbackContext context);
+        void OnTurnRight(InputAction.CallbackContext context);
     }
 }

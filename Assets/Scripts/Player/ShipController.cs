@@ -4,123 +4,204 @@ using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
-    //speed stuff
-    float speed;
-    public int cruiseSpeed;
-    float deltaSpeed;//(speed - cruisespeed)
-    public int minSpeed;
-    public int maxSpeed;
-    float accel, decel;
+    public Transform _transform;
+    public Rigidbody _rigidbody;
 
-    //turning stuff
-    Vector3 angVel;
-    Vector3 shipRot;
-    public int sensitivity;
+    public Camera Camera;
+    public Transform CameraTarget;
+    [Range(0, 1)] public float CameraSpring = 0.96f;
 
-    public Vector3 cameraOffset; //I use (0,1,-3)
+    public float MinThrust = 600f;
+    public float MaxThrust = 1200f;
+    public float _currentThrust;
+    public float ThrustIncreaseSpeed = 1000f;
 
-    void Start()
+    float _deltaPitch;
+    public float PitchIncreaseSpeed = 300f;
+
+    float _deltaRoll;
+    public float RollIncreaseSpeed = 300f;
+
+    PlayerInput shipInput;
+
+    float thrustDelta = 0f;
+
+
+    //Flags
+    public bool space_flag;
+    public bool shift_flag;
+    public bool w_flag;
+    public bool s_flag;
+    public bool a_flag;
+    public bool d_flag;
+    public bool q_flag;
+    public bool e_flag;
+
+
+    private void Awake()
     {
-        speed = cruiseSpeed;
+        shipInput = new PlayerInput();
+
+  
+        shipInput.Ship.ThrustUp.performed += ctx =>
+        {
+            space_flag = true;
+        };
+        shipInput.Ship.ThrustUp.canceled += ctx =>
+        {
+            space_flag = false;
+        };
+
+        shipInput.Ship.ThrustDown.performed += ctx =>
+        {
+            shift_flag = true;
+        };
+        shipInput.Ship.ThrustDown.canceled += ctx =>
+        {
+            shift_flag = false;
+        };
+
+        shipInput.Ship.PitchUp.performed += ctx =>
+        {
+            w_flag = true;
+        };
+        shipInput.Ship.PitchUp.canceled += ctx =>
+        {
+            w_flag = false;
+        };
+
+        shipInput.Ship.PitchDown.performed += ctx =>
+        {
+            s_flag = true;
+        };
+        shipInput.Ship.PitchDown.canceled += ctx =>
+        {
+            s_flag = false;
+        };
+
+        shipInput.Ship.RollUp.performed += ctx =>
+        {
+            a_flag = true;
+        };
+        shipInput.Ship.RollUp.canceled += ctx =>
+        {
+            a_flag = false;
+        };
+
+        shipInput.Ship.RollDown.performed += ctx =>
+        {
+            d_flag = true;
+        };
+        shipInput.Ship.RollDown.canceled += ctx =>
+        {
+            d_flag = false;
+        };
+
+        shipInput.Ship.TurnLeft.performed += ctx =>
+        {
+            q_flag = true;
+        };
+        shipInput.Ship.TurnLeft.canceled += ctx =>
+        {
+            q_flag = false;
+        };
+
+        shipInput.Ship.TurnRight.performed += ctx =>
+        {
+            e_flag = true;
+        };
+        shipInput.Ship.TurnRight.canceled += ctx =>
+        {
+            e_flag = false;
+        };
+    }
+
+
+    private void OnEnable()
+    {
+        shipInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        shipInput.Disable();
+    }
+
+
+
+    private void Update()
+    {
+        var thrustDelta = 0f;
+        if (space_flag)
+        {
+            thrustDelta += ThrustIncreaseSpeed;
+        }
+
+        if (shift_flag)
+        {
+            thrustDelta -= ThrustIncreaseSpeed;
+        }
+
+        _currentThrust += thrustDelta * Time.deltaTime;
+        _currentThrust = Mathf.Clamp(_currentThrust, MinThrust, MaxThrust);
+
+        _deltaPitch = 0f;
+        if (s_flag)
+        {
+            _deltaPitch -= PitchIncreaseSpeed;
+        }
+
+        if (w_flag)
+        {
+            _deltaPitch += PitchIncreaseSpeed;
+        }
+
+        _deltaPitch *= Time.deltaTime;
+
+        _deltaRoll = 0f;
+        //if (a_flag)
+        //{
+        //    _deltaRoll += RollIncreaseSpeed;
+        //}
+
+        //if (d_flag)
+        //{
+        //    _deltaRoll -= RollIncreaseSpeed;
+        //}
+
+        _deltaRoll *= Time.deltaTime;
+
+
+        if (q_flag)
+        {
+            var quat = Quaternion.Euler(0, -1, 0);
+            var lastRotation = _transform.rotation;
+            _transform.rotation = lastRotation * quat;
+        }
+        if (e_flag)
+        {
+            var quat = Quaternion.Euler(0, 1, 0);
+            var lastRotation = _transform.rotation;
+            _transform.rotation = lastRotation * quat;
+
+        }
     }
 
     void FixedUpdate()
     {
+        var localRotation = _transform.localRotation;
+        localRotation *= Quaternion.Euler(0f, 0f, _deltaRoll);
+        localRotation *= Quaternion.Euler(_deltaPitch, 0f, 0f);
+        _transform.localRotation = localRotation;
+        _rigidbody.velocity = _transform.forward * (_currentThrust * Time.fixedDeltaTime);
 
-        //ANGULAR DYNAMICS//
+        Vector3 cameraTargetPosition = _transform.position + _transform.forward * -8f + new Vector3(0f, 3f, 0f);
+        var cameraTransform = Camera.transform;
 
-        shipRot = transform.GetChild(1).localEulerAngles; //make sure you're getting the right child (the ship).  I don't know how they're numbered in general.
-
-        //since angles are only stored (0,360), convert to +- 180
-        if (shipRot.x > 180) shipRot.x -= 360;
-        if (shipRot.y > 180) shipRot.y -= 360;
-        if (shipRot.z > 180) shipRot.z -= 360;
-
-        //vertical stick adds to the pitch velocity
-        //         (*************************** this *******************************) is a nice way to get the square without losing the sign of the value
-        angVel.x += Input.GetAxis("Vertical") * Mathf.Abs(Input.GetAxis("Vertical")) * sensitivity * Time.fixedDeltaTime;
-
-        //horizontal stick adds to the roll and yaw velocity... also thanks to the .5 you can't turn as fast/far sideways as you can pull up/down
-        float turn = Input.GetAxis("Horizontal") * Mathf.Abs(Input.GetAxis("Horizontal")) * sensitivity * Time.fixedDeltaTime;
-        angVel.y += turn * .5f;
-        angVel.z -= turn * .5f;
-
-
-        //shoulder buttons add to the roll and yaw.  No deltatime here for a quick response
-        //comment out the .y parts if you don't want to turn when you hit them
-        if (Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKey(KeyCode.I))
-        {
-            angVel.y -= 20;
-            angVel.z += 50;
-            speed -= 5 * Time.fixedDeltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKey(KeyCode.O))
-        {
-            angVel.y += 20;
-            angVel.z -= 50;
-            speed -= 5 * Time.fixedDeltaTime;
-        }
-
-
-        //your angular velocity is higher when going slower, and vice versa.  There probably exists a better function for this.
-        angVel /= 1 + deltaSpeed * .001f;
-
-        //this is what limits your angular velocity.  Basically hard limits it at some value due to the square magnitude, you can
-        //tweak where that value is based on the coefficient
-        angVel -= angVel.normalized * angVel.sqrMagnitude * .08f * Time.fixedDeltaTime;
-
-
-        //and finally rotate.  
-        transform.GetChild(1).Rotate(angVel * Time.fixedDeltaTime);
-
-        //this limits your rotation, as well as gradually realigns you.  It's a little convoluted, but it's
-        //got the same square magnitude functionality as the angular velocity, plus a constant since x^2
-        //is very small when x is small.  Also realigns faster based on speed.  feel free to tweak
-        transform.GetChild(1).Rotate(-shipRot.normalized * .015f * (shipRot.sqrMagnitude + 500) * (1 + speed / maxSpeed) * Time.fixedDeltaTime);
-
-
-        //LINEAR DYNAMICS//
-
-        deltaSpeed = speed - cruiseSpeed;
-
-        //This, I think, is a nice way of limiting your speed.  Your acceleration goes to zero as you approach the min/max speeds, and you initially
-        //brake and accelerate a lot faster.  Could potentially do the same thing with the angular stuff.
-        decel = speed - minSpeed;
-        accel = maxSpeed - speed;
-
-        //simple accelerations
-        if (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.LeftShift))
-            speed += accel * Time.fixedDeltaTime;
-        else if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetKey(KeyCode.Space))
-            speed -= decel * Time.fixedDeltaTime;
-
-        //if not accelerating or decelerating, tend toward cruise, using a similar principle to the accelerations above
-        //(added clamping since it's more of a gradual slowdown/speedup) 
-        else if (Mathf.Abs(deltaSpeed) > .1f)
-            speed -= Mathf.Clamp(deltaSpeed * Mathf.Abs(deltaSpeed), -30, 100) * Time.fixedDeltaTime;
-
-
-        //moves camera (make sure you're GetChild()ing the camera's index)
-        //I don't mind directly connecting this to the speed of the ship, because that always changes smoothly
-        transform.GetChild(0).localPosition = cameraOffset + new Vector3(0, 0, -deltaSpeed * .02f);
-
-
-        float sqrOffset = transform.GetChild(1).localPosition.sqrMagnitude;
-        Vector3 offsetDir = transform.GetChild(1).localPosition.normalized;
-
-
-        //this takes care of realigning after collisions, where the ship gets displaced due to its rigidbody.
-        //I'm pretty sure this is the best way to do it (have the ship and the rig move toward their mutual center)
-        transform.GetChild(1).Translate(-offsetDir * sqrOffset * 20 * Time.fixedDeltaTime);
-        //(**************** this ***************) is what actually makes the whole ship move through the world!
-        transform.Translate((offsetDir * sqrOffset * 50 + transform.GetChild(1).forward * speed) * Time.fixedDeltaTime, Space.World);
-
-        //comment this out for starfox, remove the x and z components for shadows of the empire, and leave the whole thing for free roam
-        transform.Rotate(shipRot.x * Time.fixedDeltaTime, (shipRot.y * Mathf.Abs(shipRot.y) * .02f) * Time.fixedDeltaTime, shipRot.z * Time.fixedDeltaTime);
+        cameraTransform.position = cameraTransform.position * CameraSpring + cameraTargetPosition * (1 - CameraSpring);
+        Camera.transform.LookAt(CameraTarget);
     }
 
-    void Update()
-    {
-    }
+
 }
+
