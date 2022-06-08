@@ -63,8 +63,6 @@ public class PauseMenu : MonoBehaviour
             helpMenu.SetActive(true);
             helpdisabled = true;
         }
-            
-            
     }
 
 
