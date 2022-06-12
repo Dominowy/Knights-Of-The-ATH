@@ -17,11 +17,10 @@ public class ShipController : MonoBehaviour
     public float ThrustIncreaseSpeed = 1000f;
 
     float _deltaPitch;
-    public float PitchIncreaseSpeed = 300f;
+    public float goradol = 300f;
+    public float lewpoprawo = 300f;
 
     float _deltaRoll;
-    public float RollIncreaseSpeed = 300f;
-
     PlayerInput shipInput;
 
     float thrustDelta = 0f;
@@ -148,49 +147,36 @@ public class ShipController : MonoBehaviour
         _deltaPitch = 0f;
         if (s_flag)
         {
-            _deltaPitch -= PitchIncreaseSpeed;
+            _deltaPitch -= goradol;
         }
 
         if (w_flag)
         {
-            _deltaPitch += PitchIncreaseSpeed;
+            _deltaPitch += goradol;
         }
 
         _deltaPitch *= Time.deltaTime;
 
         _deltaRoll = 0f;
-        //if (a_flag)
-        //{
-        //    _deltaRoll += RollIncreaseSpeed;
-        //}
-
-        //if (d_flag)
-        //{
-        //    _deltaRoll -= RollIncreaseSpeed;
-        //}
-
         _deltaRoll *= Time.deltaTime;
-
 
         if (q_flag)
         {
-            var quat = Quaternion.Euler(0, -1, 0);
+            var quat = Quaternion.Euler(0, -1 / lewpoprawo, 0);
             var lastRotation = _transform.rotation;
             _transform.rotation = lastRotation * quat;
         }
         if (e_flag)
         {
-            var quat = Quaternion.Euler(0, 1, 0);
+            var quat = Quaternion.Euler(0, 1 / lewpoprawo, 0);
             var lastRotation = _transform.rotation;
             _transform.rotation = lastRotation * quat;
-
         }
     }
 
     void FixedUpdate()
     {
         var localRotation = _transform.localRotation;
-        localRotation *= Quaternion.Euler(0f, 0f, _deltaRoll);
         localRotation *= Quaternion.Euler(_deltaPitch, 0f, 0f);
         _transform.localRotation = localRotation;
         _rigidbody.velocity = _transform.forward * (_currentThrust * Time.fixedDeltaTime);
