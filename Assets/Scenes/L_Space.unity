@@ -6038,7 +6038,7 @@ MonoBehaviour:
   MaxThrust: 4000
   _currentThrust: 0
   ThrustIncreaseSpeed: 2400
-  goradol: 300
+  goradol: 100
   lewpoprawo: 10
   space_flag: 0
   shift_flag: 0
