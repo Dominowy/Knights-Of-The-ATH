@@ -106,7 +106,7 @@ namespace Assets.Scripts.Enemy
             {
                 agent.SetDestination(walkPoint);
                 agent.transform.LookAt(walkPoint);
-                botanimator.SetFloat("Move", 0.5f);
+                botanimator.SetFloat("Move", 1.0f);
             }
 
             if (!chased)
@@ -157,7 +157,12 @@ namespace Assets.Scripts.Enemy
             
             agent.SetDestination(transform.position);
 
-            transform.LookAt(player);
+            //transform.LookAt(player);
+
+            var lookPos = player.position - this.transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, Time.deltaTime * 2.0f);
 
             if (!alreadyAttacked)
             {
@@ -165,9 +170,6 @@ namespace Assets.Scripts.Enemy
                 Invoke(nameof(ResetLaser), 5);
                 firePoint = transform.Find("firePoint").transform.position;
                 Rigidbody rb = Instantiate(laser, firePoint, gameObject.transform.rotation).GetComponent<Rigidbody>();
-                rb.AddForce(transform.forward * 18f, ForceMode.Impulse);
-                rb.AddForce(transform.up * 0.05f, ForceMode.Impulse);
-
                 alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), timeBetweenAttacks);
             }

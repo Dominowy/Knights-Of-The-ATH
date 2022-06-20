@@ -27,7 +27,7 @@ public class SelectedEnemy : MonoBehaviour
         player = GameObject.Find("Player");
     }
 
-   void ForceChoke(GameObject bot)
+    void ForceChoke(GameObject bot)
     {
         canMove = false;
         SkillDuration -= Time.deltaTime;

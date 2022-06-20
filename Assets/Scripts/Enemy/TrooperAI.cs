@@ -152,15 +152,17 @@ namespace Assets.Scripts.Enemy
         {
             agent.SetDestination(transform.position);
 
-            transform.LookAt(player);
+            //transform.LookAt(player);
+
+            var lookPos = player.position - this.transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, Time.deltaTime * 2.0f);
 
             if (!alreadyAttacked)
             {
                     firePoint = transform.Find("firePoint").transform.position;
                     Rigidbody rb = Instantiate(projectile, firePoint, gameObject.transform.rotation).GetComponent<Rigidbody>();
-                    rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-                    rb.AddForce(transform.up * 0.05f, ForceMode.Impulse);
-
                     alreadyAttacked = true;
                     Invoke(nameof(ResetAttack), timeBetweenAttacks);
             }

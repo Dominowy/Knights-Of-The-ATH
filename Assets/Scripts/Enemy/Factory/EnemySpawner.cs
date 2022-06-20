@@ -24,6 +24,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject SniperPrefab;
     public GameObject TrooperPrefab;
 
+    public Vector3 randOffset;
+
     private void Awake()
     {
         SniperFactory = new EnemyFactory();
@@ -35,6 +37,8 @@ public class EnemySpawner : MonoBehaviour
     private void Update()
     {
         StartCoroutine(Spawn());
+
+        randOffset = new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
     }
 
     private IEnumerator Spawn()
@@ -42,16 +46,14 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (SniperCounter < SniperNumber)
         {
-            Debug.Log("SPAWN SNIPER");
             SniperCounter++;
-            var Sniper = SniperFactory.GetNewInstance(Shuttle.transform.position);
+            var Sniper = SniperFactory.GetNewInstance(Shuttle.transform.position + randOffset);
         }
 
         if (TrooperCounter < TrooperNumber)
         {
-            Debug.Log("spawn trooper");
             TrooperCounter++;
-            var Trooper = TrooperFactory.GetNewInstance(Shuttle.transform.position);
+            var Trooper = TrooperFactory.GetNewInstance(Shuttle.transform.position + randOffset);
         }
     }
 
