@@ -26,6 +26,10 @@ public class ShipController : MonoBehaviour
     float thrustDelta = 0f;
 
 
+
+    public ParticleSystem ps;
+    public float color;
+
     //Flags
     public bool space_flag;
     public bool shift_flag;
@@ -186,6 +190,16 @@ public class ShipController : MonoBehaviour
 
         cameraTransform.position = cameraTransform.position * CameraSpring + cameraTargetPosition * (1 - CameraSpring);
         Camera.transform.LookAt(CameraTarget);
+
+        color = _currentThrust / 50;
+        if (color <70)
+        {
+            color = 0;
+        }
+
+        ps.GetComponent<ParticleSystem>().startColor = new Color(1, 1, 1, color);
+
+
     }
 
 
